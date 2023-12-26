@@ -7,6 +7,10 @@ import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import React from "react";
+import { useParams } from "react-router-dom";
+interface RouteParams {
+  token: string;
+}
 
 function Reset() {
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,7 +19,8 @@ function Reset() {
   const [showConfirm, setShowConfirm] = useState(false);
   const toast = useToast();
   const history = useHistory();
-
+  const { token }: RouteParams = useParams();
+  console.log("««««« token »»»»»", token);
   // show and hide password
   const handleClick = () => {
     setShow(!show);
@@ -44,7 +49,7 @@ function Reset() {
       };
 
       const { data } = await axios.post(
-        "https://pbl3-chatbot.onrender.com/api/forgotPassword",
+        "https://pbl3-chatbot.onrender.com/api/resetPassword",
         {
           password,
         },
