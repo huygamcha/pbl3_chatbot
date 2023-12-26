@@ -44,7 +44,7 @@ function Reset() {
       };
 
       const { data } = await axios.post(
-        "https://pbl3-chatbot.onrender.com/api/user/login",
+        "https://pbl3-chatbot.onrender.com/api/forgotPassword",
         {
           password,
         },

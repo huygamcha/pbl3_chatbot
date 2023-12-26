@@ -9,8 +9,7 @@ import {
   TabPanels,
   TabPanel,
 } from "@chakra-ui/react";
-import Login from "../../components/authentication/Login";
-import Signup from "../../components/authentication/Signup";
+
 import Reset from "../../components/authentication/Reset";
 
 function ForgetPassword() {

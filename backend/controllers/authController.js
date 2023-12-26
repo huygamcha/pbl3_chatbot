@@ -28,7 +28,7 @@ async function forgotPassword(req, res) {
   await user.save();
 
   // Send the password reset email
-  const resetUrl = `http://localhost:5173/reset-password?token=${token}`;
+  const resetUrl = `https://pbl3-chatbot.vercel.app/reset-password?token=${token}`;
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
