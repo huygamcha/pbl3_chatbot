@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const historyRoutes = require("./routes/historyRoutes");
+const passwordRoutes = require("./routes/passwordRoutes");
 const morgan = require("morgan");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/history", historyRoutes);
+app.use("/api", passwordRoutes);
 app.use(notFound);
 app.use(errorHandler);
 const Port = process.env.PORT || 2000;

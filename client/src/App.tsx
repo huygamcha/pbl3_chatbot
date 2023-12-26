@@ -4,6 +4,7 @@ import "./App.css";
 import HomePage from "../pages/HomePage";
 import ChatPage from "../pages/ChatPage";
 import React from "react";
+import ForgetPassword from "../pages/ForgetPassword";
 
 // import { Button } from '@chakra-ui/react'
 
@@ -13,6 +14,7 @@ function App() {
     <div className="App">
       <Route path="/" component={HomePage} exact></Route>
       <Route path="/chats" component={ChatPage}></Route>
+      <Route path="/reset-password" component={ForgetPassword}></Route>
     </div>
   );
 }
