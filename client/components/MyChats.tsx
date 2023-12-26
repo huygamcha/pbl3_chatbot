@@ -36,7 +36,7 @@ const MyChats = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const apiUrl = `http://localhost:2001/api/history/get?id=${userId}`;
+      const apiUrl = `https://pbl3-chatbot.onrender.com/api/history/get?id=${userId}`;
       try {
         const response = await axios.get(apiUrl, config);
         const allHistory = response.data;
@@ -60,7 +60,7 @@ const MyChats = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const apiUrl = `http://localhost:2001/api/history/get?id=${userId}`;
+      const apiUrl = `https://pbl3-chatbot.onrender.com/api/history/get?id=${userId}`;
       try {
         const response = await axios.get(apiUrl, config);
         const allHistory = response.data;
@@ -78,7 +78,7 @@ const MyChats = () => {
   const handleDelete = async () => {
     console.log("«««««123  »»»»»", selectedChat._id);
     if (selectedChat._id != 123) {
-      const deleteUrl = `http://localhost:2001/api/history/delete?id=${selectedChat._id}`;
+      const deleteUrl = `https://pbl3-chatbot.onrender.com/api/history/delete?id=${selectedChat._id}`;
       if (window.confirm("Do you want to delete this chat?"))
         try {
           // Gửi yêu cầu DELETE bằng Axios

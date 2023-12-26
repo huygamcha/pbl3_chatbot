@@ -13,7 +13,7 @@ import { useToast } from "@chakra-ui/react";
 var socket;
 
 function Chatbox() {
-  const ENDPOINT = "http://localhost:2001";
+  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
   const [question, setQuestion] = useState("");
   const [displayText, setDisplayText] = useState("");
   const [listQuestion, setListQuestion] = useState<Array<String>[]>([[]]);
@@ -120,7 +120,7 @@ function Chatbox() {
           // nếu chọn new chat, và chưa tồn tại đoạn chat nào hết
           if (!selectedChat || selectedChat._id == 123) {
             const response = await axios.post(
-              "http://localhost:2001/api/history/create",
+              "https://pbl3-chatbot.onrender.com/api/history/create",
               {
                 userId: user._id,
                 question: storeQuestion,
@@ -132,7 +132,7 @@ function Chatbox() {
             setSelectedChat(response.data);
           } else {
             await axios.post(
-              `http://localhost:2001/api/history/create?id=${selectedChat._id}`,
+              `https://pbl3-chatbot.onrender.com/api/history/create?id=${selectedChat._id}`,
               {
                 userId: user._id,
                 question: storeQuestion,

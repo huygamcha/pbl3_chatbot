@@ -90,7 +90,7 @@ const ProfileModal = ({ user, children }) => {
         },
       };
       const { data } = await axios.patch(
-        "http://localhost:2001/api/user",
+        "https://pbl3-chatbot.onrender.com/api/user",
         {
           name,
           password,

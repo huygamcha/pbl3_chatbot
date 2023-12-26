@@ -75,7 +75,7 @@ function SideDrawer() {
         },
       };
       const { data } = await axios.get(
-        `http://localhost:2001/api/user?keyword=${search}`,
+        `https://pbl3-chatbot.onrender.com/api/user?keyword=${search}`,
         config
       );
 
