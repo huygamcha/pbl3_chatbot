@@ -45,6 +45,7 @@ const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     setUser(currentUser);
 
     if (!userInfo) history.push("/");
+    console.log("««««« history »»»»»", history);
   }, [history]);
 
   return (
