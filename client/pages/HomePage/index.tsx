@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Login from "../../components/authentication/Login";
 import Signup from "../../components/authentication/Signup";
+import Forgot from "../../components/authentication/Forget";
 
 function HomePage() {
   return (
@@ -41,6 +42,7 @@ function HomePage() {
           <TabList>
             <Tab>Sign in</Tab>
             <Tab>Sign up</Tab>
+            <Tab>Forgot password</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -48,6 +50,9 @@ function HomePage() {
             </TabPanel>
             <TabPanel>
               <Signup></Signup>
+            </TabPanel>
+            <TabPanel>
+              <Forgot></Forgot>
             </TabPanel>
           </TabPanels>
         </Tabs>
