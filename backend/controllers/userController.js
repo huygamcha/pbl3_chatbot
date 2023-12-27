@@ -3,8 +3,21 @@ const generateToken = require("../config/generateToken");
 const User = require("../models/userModel");
 const { fuzzySearch } = require("../utils/index");
 
+const getAllUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find({ email: fuzzySearch(".com") });
+  if (users) {
+    res.send(200, {
+      message: "Get successful",
+      payload: users,
+    });
+  } else {
+    res.send(404, {
+      message: "No users found",
+    });
+  }
+});
+
 const registerUser = asyncHandler(async (req, res, next) => {
-  console.log("««««« req.body »»»»»", req.body);
   const { name, email, password, pic } = req.body;
 
   if (!name || !email || !password) {
@@ -63,7 +76,6 @@ const authUser = asyncHandler(async (req, res) => {
 
 const searchUsers = asyncHandler(async (req, res) => {
   const { keyword } = req.query;
-  const regex = new RegExp(keyword, "i");
 
   const users = await User.find({
     $or: [{ email: fuzzySearch(keyword) }, { name: fuzzySearch(keyword) }],
@@ -109,4 +121,10 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser, searchUsers, updateUser };
+module.exports = {
+  registerUser,
+  authUser,
+  searchUsers,
+  updateUser,
+  getAllUsers,
+};
