@@ -8,19 +8,17 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import React from "react";
 import { useParams } from "react-router-dom";
-interface RouteParams {
-  token: string;
-}
 
 function Reset() {
+  interface RouteParams {
+    token?: String;
+  }
   const [confirmPassword, setConfirmPassword] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const toast = useToast();
   const history = useHistory();
-  const { token }: RouteParams = useParams();
-  console.log("««««« token »»»»»", token);
   // show and hide password
   const handleClick = () => {
     setShow(!show);
@@ -29,6 +27,9 @@ function Reset() {
   const handleClickConfirm = () => {
     setShowConfirm(!showConfirm);
   };
+
+  const { token }: RouteParams = useParams();
+  console.log("««««« token »»»»»", token);
 
   const submitHandler = async () => {
     if (!confirmPassword || !password) {
@@ -49,7 +50,7 @@ function Reset() {
       };
 
       const { data } = await axios.post(
-        "https://pbl3-chatbot.onrender.com/api/resetPassword",
+        `https://pbl3-chatbot.onrender.com/api/resetPassword?token=${token}`,
         {
           password,
         },

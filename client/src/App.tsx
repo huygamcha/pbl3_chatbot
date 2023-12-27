@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Route path="/" component={HomePage} exact></Route>
       <Route path="/chats" component={ChatPage}></Route>
-      <Route path="/reset-password" component={ForgetPassword}></Route>
+      <Route path="/reset-password:/token" component={ForgetPassword}></Route>
     </div>
   );
 }
