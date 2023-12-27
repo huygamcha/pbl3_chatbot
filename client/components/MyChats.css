@@ -6,3 +6,6 @@ font-size: 24px;
 .image > svg:hover{
  background-color: red;
 }
+.img_test{
+    border-radius: '10px';
+}
