@@ -7,12 +7,8 @@ import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import React from "react";
-import { useParams } from "react-router-dom";
 
 function Reset() {
-  interface RouteParams {
-    token?: String;
-  }
   const [confirmPassword, setConfirmPassword] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
@@ -27,10 +23,8 @@ function Reset() {
   const handleClickConfirm = () => {
     setShowConfirm(!showConfirm);
   };
-
-  const { token }: RouteParams = useParams();
+  const token = location.search.slice(7);
   console.log("««««« token »»»»»", token);
-  console.log("««««« location »»»»»", location);
 
   const submitHandler = async () => {
     if (!confirmPassword || !password) {
