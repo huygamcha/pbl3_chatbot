@@ -30,6 +30,7 @@ function Reset() {
 
   const { token }: RouteParams = useParams();
   console.log("««««« token »»»»»", token);
+  console.log("««««« location »»»»»", location);
 
   const submitHandler = async () => {
     if (!confirmPassword || !password) {
