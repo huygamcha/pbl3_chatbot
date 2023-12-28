@@ -121,10 +121,35 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+const newUser = asyncHandler(async (req, res) => {
+  let fromDate = new Date();
+  fromDate.setHours(0, 0, 0, 0);
+  const query = {
+    createdAt: { $gte: fromDate },
+  };
+
+  const newUsers = await User.find(query);
+  const total = await newUsers.length;
+  if (newUsers) {
+    res.send(200, {
+      message: "Get new users successfully",
+      payload: {
+        data: newUsers,
+        total: total,
+      },
+    });
+  } else {
+    res.send(404, {
+      message: "Get new users failed",
+    });
+  }
+});
+
 module.exports = {
   registerUser,
   authUser,
   searchUsers,
   updateUser,
   getAllUsers,
+  newUser,
 };

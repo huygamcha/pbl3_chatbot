@@ -30,6 +30,7 @@ import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import ProfileModal from "./ ProfileModal";
 import ChatLoading from "../userAvatar/ChatLoading";
 import UserListItem from "../userAvatar/UserListItem";
+import Dashboard from "../Admin/Dashboard";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -118,10 +119,13 @@ function SideDrawer() {
             {/* Chatbot */}
           </Text>
         )}
-
-        <Text fontSize="2xl" fontFamily="Work sans">
-          Chatbot
-        </Text>
+        {!user.isAdmin ? (
+          <Text fontSize="2xl" fontFamily="Work sans">
+            Chatbot
+          </Text>
+        ) : (
+          <Dashboard></Dashboard>
+        )}
         <div>
           <Menu>
             <MenuButton p={1}>

@@ -4,8 +4,10 @@ import { Box } from "@chakra-ui/layout";
 import MyChats from "../../components/MyChats";
 import Chatbox from "../../components/Chatbox";
 import SideDrawer from "../../components/miscellaneous/SideDrawer";
+import Navigation from "../../components/Admin/Navigation";
 
 function ChatPage() {
+  const user = JSON.parse(localStorage.getItem("userInfo")!);
   return (
     <div style={{ width: "100%" }}>
       <SideDrawer></SideDrawer>
@@ -17,8 +19,13 @@ function ChatPage() {
         h="91.5vh"
         p="10px"
       >
-        <MyChats />
-        <Chatbox />
+        {user.isAdmin ? (
+          <Navigation></Navigation>
+        ) : (
+          <>
+            <MyChats /> <Chatbox />
+          </>
+        )}
       </Box>
     </div>
   );

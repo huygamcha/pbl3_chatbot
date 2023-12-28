@@ -1,9 +1,60 @@
 const asyncHandler = require("express-async-handler");
 const History = require("../models/historyModel");
+const User = require("../models/userModel");
 const mongoose = require("mongoose");
+const { fuzzySearch } = require("../utils/index");
 
 // truy cập vào đoạn chat, với userId là biến truyền lên
 //  req.user._id là id login vào
+
+const getAllChat = asyncHandler(async (req, res) => {
+  const allChat = await History.aggregate([
+    {
+      $group: {
+        _id: "$userId",
+        totalQuestions: { $sum: { $size: "$question" } },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        allQuestions: { $sum: "$totalQuestions" },
+        usersData: {
+          $push: { userId: "$_id", totalQuestions: "$totalQuestions" },
+        },
+      },
+    },
+    { $sort: { "usersData.totalQuestions": -1 } },
+  ]).exec();
+
+  if (allChat) {
+    // Lấy userIds từ mảng usersData
+    const userIds = allChat[0].usersData.map((user) => user.userId);
+
+    // Tìm kiếm thông tin người dùng dựa trên userIds
+    const users = await User.find({ _id: { $in: userIds } });
+
+    // Gán thông tin người dùng vào mảng usersData
+    const userData = allChat[0].usersData.map((user) => {
+      const foundUser = users.find(
+        (u) => u._id.toString() === user.userId.toString()
+      );
+      return {
+        ...user,
+        user: foundUser || null, // Thêm thông tin người dùng vào mỗi phần tử userData
+      };
+    });
+
+    res.status(200).send({
+      message: "Get successful",
+      payload: userData,
+    });
+  } else {
+    res.status(404).send({
+      message: "No chat found",
+    });
+  }
+});
 
 // lấy các đoạn chat của id đăng nhập
 const createChat = asyncHandler(async (req, res) => {
@@ -102,4 +153,4 @@ const deleteHistory = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createChat, getMessages, deleteHistory };
+module.exports = { createChat, getMessages, deleteHistory, getAllChat };

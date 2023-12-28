@@ -5,6 +5,7 @@ const {
   searchUsers,
   updateUser,
   getAllUsers,
+  newUser,
 } = require("../controllers/userController");
 const { protect } = require("../middleware/authMiddleware");
 const router = express.Router();
@@ -14,5 +15,6 @@ router.route("/login").post(authUser);
 router.route("/").get(protect, searchUsers);
 router.route("/").patch(protect, updateUser);
 router.route("/getAll").get(protect, getAllUsers);
+router.route("/newUser").get(protect, newUser);
 
 module.exports = router;

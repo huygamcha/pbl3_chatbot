@@ -1,26 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const historySchema = mongoose.Schema(
-  {
-    productId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "products",
-      required: true,
-    },
-    question: {
-      type: Array,
-      required: true,
-    },
-    answer: {
-      type: Array,
-      required: true,
-    },
-  },
-  {
-    versionKey: false,
-  }
-);
 const userSchema = mongoose.Schema(
   {
     name: {
