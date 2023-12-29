@@ -1,9 +1,23 @@
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import { AddIcon, CheckIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Stack, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button } from "@chakra-ui/react";
+import { TbEdit } from "react-icons/tb";
+import { MdOutlineDelete } from "react-icons/md";
+import {
+  Avatar,
+  Button,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import React from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import { clsx } from "clsx";
@@ -22,6 +36,7 @@ const Navigation = () => {
 
   interface User {
     name: String;
+    totalQuestions: number;
   }
 
   interface allChat {
@@ -31,6 +46,9 @@ const Navigation = () => {
 
   interface allUser {
     name: string;
+    email: String;
+    isAdmin: boolean;
+    pic: string;
   }
 
   interface allNewUser {
@@ -269,40 +287,220 @@ const Navigation = () => {
         >
           {/* {} */}
           {adminSelected == "dashboard" ? (
-            <Box display="flex" justifyContent="space-around">
+            <Box display="flex" flexDirection="column">
               <Box
-                // boxShadow=" 0px 14px 28px "
-                bg="#e8e8e8"
-                p="10"
-                width="30%"
+                my={5}
+                w="10%"
+                p={4}
                 borderRadius="10px"
+                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                bg="#e8e8e8"
               >
-                <Text display="flex" mb={2} textTransform="uppercase">
-                  Total user:
-                  <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                    {allUser ? allUser.length : "N/A"}
-                  </Text>
-                </Text>
+                Data
               </Box>
-              <Box bg="#e8e8e8" p="10" width="30%" borderRadius="10px">
-                <Text display="flex" mb={2} textTransform="uppercase">
-                  Total chat:
-                  <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                    {allChats ? allChats : <></>}
+              <Box display="flex" justifyContent="space-between">
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="23%"
+                  borderRadius="10px"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Total user:
+                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                      {allUser ? allUser.length : "N/A"}
+                    </Text>
                   </Text>
-                </Text>
+                </Box>
+
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="23%"
+                  borderRadius="10px"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    New user today:
+                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                      {allNewUser ? allNewUser?.total : <></>}
+                    </Text>
+                  </Text>
+                </Box>
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="23%"
+                  borderRadius="10px"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Total chat:
+                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                      {allChats ? allChats : <></>}
+                    </Text>
+                  </Text>
+                </Box>
+
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="23%"
+                  borderRadius="10px"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Chat / user:
+                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                      {allChats && allUser ? (
+                        (allChats / allUser.length).toFixed(2)
+                      ) : (
+                        <></>
+                      )}
+                    </Text>
+                  </Text>
+                </Box>
               </Box>
-              <Box bg="#e8e8e8" p="10" width="30%" borderRadius="10px">
-                <Text display="flex" mb={2} textTransform="uppercase">
-                  most active users:
-                </Text>
-                <Text textTransform="uppercase" fontWeight="bold">
-                  {allChat ? allChat[0]?.user.name : <></>}
-                </Text>
+              <Box
+                my={5}
+                w="10%"
+                p={4}
+                borderRadius="10px"
+                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                bg="#e8e8e8"
+              >
+                Top chat
+              </Box>
+              <Box
+                mt={0}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="end"
+              >
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="30%"
+                  borderRadius="10px"
+                  height="100px"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Top 3:
+                  </Text>
+                  <Text fontWeight="bold">
+                    {allChat ? allChat[2].user.name : "N/A"} (
+                    {allChat ? allChat[2].totalQuestions : "N/A"})
+                  </Text>
+                </Box>
+
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="30%"
+                  borderRadius="10px"
+                  height="200px"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Top 1:
+                  </Text>
+                  <Text fontWeight="bold">
+                    {allChat ? allChat[0].user.name : "N/A"} (
+                    {allChat ? allChat[0].totalQuestions : "N/A"})
+                  </Text>
+                </Box>
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="30%"
+                  borderRadius="10px"
+                  height="150px"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Top 2:
+                  </Text>
+                  <Text fontWeight="bold">
+                    {allChat ? allChat[1].user.name : "N/A"} (
+                    {allChat ? allChat[1].totalQuestions : "N/A"})
+                  </Text>
+                </Box>
               </Box>
             </Box>
           ) : allUser ? (
-            allUser[0]?.name
+            <TableContainer>
+              <Table variant="striped" colorScheme="teal">
+                <TableCaption>
+                  {/* Imperial to metric conversion factors */}
+                </TableCaption>
+                <Thead>
+                  <Tr>
+                    <Th>Name</Th>
+                    <Th>email</Th>
+                    <Th>admin</Th>
+                    <Th>avatar</Th>
+                    <Th>action</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {allUser.map((user) => (
+                    <Tr>
+                      <Td
+                        borderTopLeftRadius="10px"
+                        borderBottomLeftRadius="10px"
+                      >
+                        {user.name}
+                      </Td>
+                      <Td>{user.email}</Td>
+                      <Td>
+                        {user.isAdmin ? (
+                          <CheckIcon
+                            bg="teal"
+                            p={1}
+                            fontSize="30px"
+                            borderRadius="50%"
+                            color="white"
+                          ></CheckIcon>
+                        ) : (
+                          ""
+                        )}
+                      </Td>
+                      <Td>
+                        <Avatar
+                          size="sm"
+                          cursor="pointer"
+                          name={user.name}
+                          src={user.pic}
+                        ></Avatar>
+                      </Td>
+                      <Td
+                        borderTopRightRadius="10px"
+                        borderBottomRightRadius="10px"
+                      >
+                        <Box display="flex" fontSize="28px">
+                          <TbEdit />
+                          <MdOutlineDelete color="red" />
+                        </Box>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
           ) : (
             "N/A"
           )}
