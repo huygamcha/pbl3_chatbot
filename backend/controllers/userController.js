@@ -145,6 +145,26 @@ const newUser = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteUser = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.query;
+    console.log("««««« id »»»»»", id);
+
+    const user = await User.findByIdAndDelete(id);
+    if (user) {
+      res.send(200, {
+        message: "User deleted successfully",
+      });
+    } else {
+      res.send(404, {
+        message: "User not found",
+      });
+    }
+  } catch (error) {
+    console.log("««««« error »»»»»", error);
+  }
+});
+
 module.exports = {
   registerUser,
   authUser,
@@ -152,4 +172,5 @@ module.exports = {
   updateUser,
   getAllUsers,
   newUser,
+  deleteUser,
 };
