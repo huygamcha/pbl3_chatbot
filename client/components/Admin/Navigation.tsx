@@ -4,16 +4,7 @@ import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TbEdit } from "react-icons/tb";
-import { MdOutlineDelete } from "react-icons/md";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
+
 import {
   Avatar,
   Button,
@@ -241,8 +232,6 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    // let newChats = allChat?.map((value) => (newChats += value?.totalQuestions));
-    // setAllChats(newChats);
     allChat?.map((value) => {
       setAllChats((prev) => value?.totalQuestions + prev);
     });
@@ -548,7 +537,7 @@ const Navigation = () => {
                         borderTopRightRadius="10px"
                         borderBottomRightRadius="10px"
                       >
-                        <Box display="flex" fontSize="28px">
+                        <Box alignItems="center" display="flex" fontSize="28px">
                           <TbEdit color="#f2951d" />
                           <IsolatedModal key={idx} user={user} />
                           {/* <Button

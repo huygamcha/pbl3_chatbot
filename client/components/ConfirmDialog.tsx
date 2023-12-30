@@ -22,10 +22,10 @@ const IsolatedModal = ({ user }) => {
     onClose();
   };
   return (
-    <Box as="section">
-      <Button onClick={onOpen} size="sm">
+    <Box ml={2} as="section">
+      <Button onClick={onOpen} fontSize="20px" colorScheme="red" p={0}>
         {/* {user.courseTitle} */}
-        <MdOutlineDelete> </MdOutlineDelete>
+        <MdOutlineDelete />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
