@@ -24,11 +24,12 @@ import { ChatState } from "../../Context/ChatProvider";
 import { clsx } from "clsx";
 import ConfirmDialog from "../ConfirmDialog";
 import IsolatedModal from "../ConfirmDialog";
+import ProfileModal from "../miscellaneous/ ProfileModal";
 // import { styles } from "";
 const Navigation = () => {
   const { selectedChat, setSelectedChat, newChat, setChatId, setNewChat } =
     ChatState();
-  const [adminSelected, setAdminSelected] = useState("dashboard");
+  const [adminSelected, setAdminSelected] = useState("");
   const user = JSON.parse(localStorage.getItem("userInfo")!);
   interface Chat {
     _id: string;
@@ -440,7 +441,7 @@ const Navigation = () => {
                     Top 3:
                   </Text>
                   <Text fontWeight="bold">
-                    {allChat ? allChat[2].user.name : "N/A"} (
+                    {allChat ? allChat[2].user?.name : "N/A"} (
                     {allChat ? allChat[2].totalQuestions : "N/A"})
                   </Text>
                 </Box>
@@ -461,7 +462,7 @@ const Navigation = () => {
                     Top 1:
                   </Text>
                   <Text fontWeight="bold">
-                    {allChat ? allChat[0].user.name : "N/A"} (
+                    {allChat ? allChat[0].user?.name : "N/A"} (
                     {allChat ? allChat[0].totalQuestions : "N/A"})
                   </Text>
                 </Box>
@@ -481,7 +482,7 @@ const Navigation = () => {
                     Top 2:
                   </Text>
                   <Text fontWeight="bold">
-                    {allChat ? allChat[1].user.name : "N/A"} (
+                    {allChat ? allChat[1].user?.name : "N/A"} (
                     {allChat ? allChat[1].totalQuestions : "N/A"})
                   </Text>
                 </Box>
@@ -495,6 +496,7 @@ const Navigation = () => {
                 </TableCaption>
                 <Thead>
                   <Tr>
+                    <Th>STT</Th>
                     <Th>Name</Th>
                     <Th>email</Th>
                     <Th>admin</Th>
@@ -509,8 +511,9 @@ const Navigation = () => {
                         borderTopLeftRadius="10px"
                         borderBottomLeftRadius="10px"
                       >
-                        {user.name}
+                        {idx + 1}
                       </Td>
+                      <Td>{user.name}</Td>
                       <Td>{user.email}</Td>
                       <Td>
                         {user.isAdmin ? (
@@ -538,7 +541,9 @@ const Navigation = () => {
                         borderBottomRightRadius="10px"
                       >
                         <Box alignItems="center" display="flex" fontSize="28px">
-                          <TbEdit color="#f2951d" />
+                          <ProfileModal user={user}>
+                            <TbEdit color="#f2951d" />
+                          </ProfileModal>
                           <IsolatedModal key={idx} user={user} />
                           {/* <Button
                             p={0}

@@ -17,6 +17,6 @@ router.route("/").get(protect, searchUsers);
 router.route("/").patch(protect, updateUser);
 router.route("/getAll").get(protect, getAllUsers);
 router.route("/newUser").get(protect, newUser);
-router.route("/deleteUser").delete(protect, deleteUser);
+router.route("/deleteUser").delete(deleteUser);
 
 module.exports = router;

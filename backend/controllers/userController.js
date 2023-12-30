@@ -102,7 +102,9 @@ const updateUser = asyncHandler(async (req, res) => {
         message: "User not found",
       });
     } else {
-      user.password = password || user.password;
+      if (password != "") {
+        user.password = password || user.password;
+      }
       user.name = name || user.name;
       user.pic = pic || user.pic;
     }

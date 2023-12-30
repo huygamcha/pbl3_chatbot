@@ -196,8 +196,6 @@ const ProfileModal = ({ user, children }) => {
         <ModalOverlay />
 
         <ModalContent h="80%">
-          <ModalCloseButton />
-
           <ModalHeader
             display="flex"
             justifyContent="space-between"
