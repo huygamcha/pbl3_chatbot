@@ -20,7 +20,7 @@ const IsolatedModal = ({ user }) => {
   const handleConfirm = async () => {
     console.log("Confirmed!");
 
-    const api = `http://localhost:2001/api/user/deleteUser?id=${user._id}`;
+    const api = `https://pbl3-chatbot.onrender.com/api/user/deleteUser?id=${user._id}`;
     try {
       const response = await axios.delete(api);
       if (response) {
