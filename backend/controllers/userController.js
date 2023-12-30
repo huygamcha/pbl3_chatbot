@@ -115,6 +115,7 @@ const updateUser = asyncHandler(async (req, res) => {
       console.log("««««« password »»»»»", password, typeof password);
       payload = await User.findOneAndUpdate(
         { _id: userId },
+        // loại trừ password
         { ...req.body, password: password },
         { new: true }
       );
@@ -184,6 +185,51 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+//admin
+
+const updateUserByAdmin = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.query.id;
+    console.log("«««««userId  »»»»»", userId);
+    let { password } = req.body;
+    let payload;
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10); // 10 ký tự ABCDEFGHIK + 123456
+      // generate password = salt key + hash key
+      const hashPass = await bcrypt.hash(password, salt);
+      payload = await User.findOneAndUpdate(
+        { _id: userId },
+        { ...req.body, password: hashPass },
+        { new: true }
+      );
+    } else {
+      password = undefined;
+      typeof password === undefined;
+      payload = await User.findOneAndUpdate(
+        { _id: userId },
+        { ...req.body, password: password },
+        { new: true }
+      );
+    }
+    if (payload) {
+      res.send(200, {
+        message: "Updated user successfully",
+        payload: payload,
+      });
+    } else {
+      res.send(404, {
+        message: "Updated user failed",
+      });
+    }
+  } catch (error) {
+    res.send(400, {
+      error,
+      message: "Update failed",
+    });
+  }
+});
+
 module.exports = {
   registerUser,
   authUser,
@@ -192,4 +238,5 @@ module.exports = {
   getAllUsers,
   newUser,
   deleteUser,
+  updateUserByAdmin,
 };

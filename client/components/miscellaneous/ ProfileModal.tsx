@@ -1,6 +1,7 @@
 import { ViewIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
+import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
 
 import {
   Modal,
@@ -30,6 +31,8 @@ const ProfileModal = ({ user, children }) => {
   const toast = useToast();
   const [picLoading, setPicLoading] = useState(false);
   const [pic, setPic] = useState();
+  const userAdmin = JSON.parse(localStorage.getItem("userInfo")!);
+  const [admin, setAdmin] = useState(false);
 
   const handleShowPassword = () => {
     setShow(!show);
@@ -43,6 +46,10 @@ const ProfileModal = ({ user, children }) => {
     setName(user.name);
     setPic(user.pic);
   }, [user]);
+
+  useEffect(() => {
+    setAdmin(false);
+  }, [isOpen, onOpen, onClose]);
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -66,19 +73,31 @@ const ProfileModal = ({ user, children }) => {
       const config = {
         headers: {
           "Content-type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          // Authorization: `Bearer ${user.token}`,
         },
       };
-      console.log("««««« password »»»»»", password);
-      const { data } = await axios.patch(
-        "https://pbl3-chatbot.onrender.com/api/user",
-        {
-          name,
-          password,
-          pic,
-        },
-        config
-      );
+      if (!user.isAdmin) {
+        const { data } = await axios.patch(
+          "https://pbl3-chatbot.onrender.com/api/user",
+          {
+            name,
+            password,
+            pic,
+          },
+          config
+        );
+      } else {
+        const { data } = await axios.patch(
+          `http://localhost:2001/api/user/updateUserByAdmin?id=${user._id}`,
+          {
+            name,
+            password,
+            pic,
+          },
+          config
+        );
+      }
+
       toast({
         title: "Updated successfully",
         status: "success",
@@ -86,6 +105,7 @@ const ProfileModal = ({ user, children }) => {
         isClosable: true,
         position: "bottom",
       });
+      window.location.reload();
       onClose();
       setPicLoading(false);
       setPassword("");
@@ -160,7 +180,19 @@ const ProfileModal = ({ user, children }) => {
   if (name == "") {
     isName = true;
   }
-  console.log("««««« user.pic »»»»»", password);
+
+  //admin
+
+  const handleAdmin = () => {
+    setAdmin(!admin);
+  };
+
+  useEffect(() => {
+    if (user.isAdmin) {
+      setAdmin(true);
+    }
+  }, [userAdmin]);
+  console.log("««««« userAdmin »»»»»", admin);
   return (
     <>
       {children ? (
@@ -208,6 +240,20 @@ const ProfileModal = ({ user, children }) => {
                     }}
                   />
                 </FormControl>
+                {userAdmin.isAdmin ? (
+                  <Box mt={4} fontWeight="bold">
+                    <Checkbox
+                      // hiển thị khi là admin
+                      disabled={!user.isAdmin && !userAdmin.isAdmin}
+                      defaultChecked={admin}
+                      onChange={handleAdmin}
+                    >
+                      Admin
+                    </Checkbox>
+                  </Box>
+                ) : (
+                  <Box mt={2}></Box>
+                )}
               </Box>
 
               <Box w="100%" ml={2}>

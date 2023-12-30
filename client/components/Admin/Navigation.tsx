@@ -541,26 +541,13 @@ const Navigation = () => {
                         borderBottomRightRadius="10px"
                       >
                         <Box alignItems="center" display="flex" fontSize="28px">
+                          {/* edit */}
                           <ProfileModal user={user}>
-                            <TbEdit color="#f2951d" />
+                            <TbEdit cursor="pointer" color="#f2951d" />
                           </ProfileModal>
+
+                          {/* delete */}
                           <IsolatedModal key={idx} user={user} />
-                          {/* <Button
-                            p={0}
-                            ml={2}
-                            colorScheme="red"
-                            w="10px"
-                            height="30px"
-                            onClick={handleDelete}
-                          >
-                            <MdOutlineDelete />
-                          </Button>
-                          <ConfirmDialog
-                            isOpen={isOpen}
-                            onClose={onClose}
-                            onConfirm={handleConfirm}
-                            userId={selectedUserId}
-                          /> */}
                         </Box>
                       </Td>
                     </Tr>
