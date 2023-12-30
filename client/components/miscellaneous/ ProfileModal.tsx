@@ -30,7 +30,6 @@ const ProfileModal = ({ user, children }) => {
   const toast = useToast();
   const [picLoading, setPicLoading] = useState(false);
   const [pic, setPic] = useState();
-  const [isChange, setIsChange] = useState(true);
 
   const handleShowPassword = () => {
     setShow(!show);
@@ -39,11 +38,6 @@ const ProfileModal = ({ user, children }) => {
   const handleShowCPassword = () => {
     setShowConfirm(!showConfirm);
   };
-
-  // hide edit when close
-  useEffect(() => {
-    setIsChange(true);
-  }, [onClose, onOpen, isOpen]);
 
   useEffect(() => {
     setName(user.name);
@@ -55,10 +49,6 @@ const ProfileModal = ({ user, children }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   let isError = true;
   let isName = false;
-
-  const handleChange = () => {
-    setIsChange(!isChange);
-  };
 
   const handleUpdate = async () => {
     if (password !== confirmPassword) {
@@ -193,7 +183,6 @@ const ProfileModal = ({ user, children }) => {
             alignItems="center"
           >
             It's your profile
-            <Button onClick={handleChange}>Edit</Button>
           </ModalHeader>
           <ModalBody>
             <Box display="flex">
@@ -227,12 +216,7 @@ const ProfileModal = ({ user, children }) => {
                   <Input p={2} value={user.email}></Input>
                 </FormControl>
 
-                <FormControl
-                  isDisabled={isChange}
-                  id="name"
-                  pb={5}
-                  isInvalid={isName}
-                >
+                <FormControl id="name" pb={5} isInvalid={isName}>
                   <FormLabel>Name</FormLabel>
                   <Input
                     p={2}
@@ -244,12 +228,7 @@ const ProfileModal = ({ user, children }) => {
                   </FormErrorMessage>
                 </FormControl>
 
-                <FormControl
-                  isRequired
-                  isDisabled={isChange}
-                  id="password"
-                  pb={5}
-                >
+                <FormControl id="password" pb={5}>
                   <FormLabel>New password</FormLabel>
                   <InputGroup>
                     <Input
@@ -271,12 +250,7 @@ const ProfileModal = ({ user, children }) => {
                   </InputGroup>
                 </FormControl>
 
-                <FormControl
-                  isDisabled={isChange}
-                  id="password"
-                  pb={5}
-                  isInvalid={isError}
-                >
+                <FormControl id="password" pb={5} isInvalid={isError}>
                   <FormLabel>Confirm password</FormLabel>
                   <InputGroup>
                     <Input
@@ -303,7 +277,6 @@ const ProfileModal = ({ user, children }) => {
           </ModalBody>
           <ModalFooter display="flex" justifyContent="space-between">
             <Button
-              isDisabled={isChange}
               colorScheme="blue"
               onClick={() => {
                 handleUpdate();

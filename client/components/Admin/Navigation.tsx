@@ -185,7 +185,7 @@ const Navigation = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const apiUrl = `http://localhost:2001/api/user/getAll`;
+      const apiUrl = `https://pbl3-chatbot.onrender.com/api/user/getAll`;
       try {
         const response = await axios.get(apiUrl, config);
         // Xử lý dữ liệu ở đây
@@ -201,7 +201,7 @@ const Navigation = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const apiUrl = `http://localhost:2001/api/history/getAll`;
+      const apiUrl = `https://pbl3-chatbot.onrender.com/api/history/getAll`;
       try {
         const response = await axios.get(apiUrl, config);
         // Xử lý dữ liệu ở đây
@@ -217,7 +217,7 @@ const Navigation = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const apiUrl = `http://localhost:2001/api/user/newUser`;
+      const apiUrl = `https://pbl3-chatbot.onrender.com/api/user/newUser`;
       try {
         const response = await axios.get(apiUrl, config);
         // Xử lý dữ liệu ở đây
