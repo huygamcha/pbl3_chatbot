@@ -61,16 +61,6 @@ const ProfileModal = ({ user, children }) => {
   };
 
   const handleUpdate = async () => {
-    if (!password || !confirmPassword || !name) {
-      toast({
-        title: "Please Fill all the Fields!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      return;
-    }
     if (password !== confirmPassword) {
       toast({
         title: "Password does not match",
@@ -89,6 +79,7 @@ const ProfileModal = ({ user, children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
+      console.log("««««« password »»»»»", password);
       const { data } = await axios.patch(
         "https://pbl3-chatbot.onrender.com/api/user",
         {

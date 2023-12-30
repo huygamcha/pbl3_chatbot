@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const generateToken = require("../config/generateToken");
 const User = require("../models/userModel");
 const { fuzzySearch } = require("../utils/index");
+const bcrypt = require("bcrypt");
 
 const getAllUsers = asyncHandler(async (req, res, next) => {
   const users = await User.find({ email: fuzzySearch(".com") });
@@ -95,26 +96,38 @@ const updateUser = asyncHandler(async (req, res) => {
   try {
     const userId = req.user._id;
     const { password, name, pic } = req.body;
-    const user = await User.findById(userId);
-    if (!user) {
+    console.log("««««« password »»»»»", password);
+
+    let payload;
+    if (password) {
+      const salt = await bcrypt.genSalt(10); // 10 ký tự ABCDEFGHIK + 123456
+
+      // generate password = salt key + hash key
+      const hashPass = await bcrypt.hash(password, salt);
+      payload = await User.findOneAndUpdate(
+        { _id: userId },
+        { ...req.body, password: hashPass },
+        { new: true }
+      );
+    } else {
+      payload = await User.findOneAndUpdate(
+        { _id: userId },
+        { ...req.body },
+        { new: true }
+      );
+    }
+
+    if (!payload) {
       res.send(404, {
         error,
         message: "User not found",
       });
     } else {
-      if (password != "") {
-        user.password = password || user.password;
-      }
-      user.name = name || user.name;
-      user.pic = pic || user.pic;
+      res.send(200, {
+        message: "Updated",
+        payload,
+      });
     }
-
-    const updateComplete = await user.save();
-
-    res.send(200, {
-      message: "Updated",
-      updateComplete,
-    });
   } catch (error) {
     res.send(400, {
       error,
