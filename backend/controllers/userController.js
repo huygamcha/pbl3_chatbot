@@ -95,8 +95,7 @@ const searchUsers = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   try {
     const userId = req.user._id;
-    const { password, name, pic } = req.body;
-    console.log("««««« password »»»»»", password);
+    let { password } = req.body;
 
     let payload;
     if (password) {
@@ -110,11 +109,16 @@ const updateUser = asyncHandler(async (req, res) => {
         { new: true }
       );
     } else {
+      console.log("««««« password  first»»»»»", password);
+      password = undefined;
+      typeof password === undefined;
+      console.log("««««« password »»»»»", password, typeof password);
       payload = await User.findOneAndUpdate(
         { _id: userId },
-        { ...req.body },
+        { ...req.body, password: password },
         { new: true }
       );
+      console.log("««««« payload »»»»»", payload);
     }
 
     if (!payload) {
