@@ -83,23 +83,22 @@ const MyChats = () => {
     console.log("«««««123  »»»»»", selectedChat._id);
     if (selectedChat._id != 123) {
       const deleteUrl = `https://pbl3-chatbot.onrender.com/api/history/delete?id=${selectedChat._id}`;
-      if (window.confirm("Do you want to delete this chat?"))
-        try {
-          const response = await axios.delete(deleteUrl);
-          // Kiểm tra trạng thái phản hồi (response status)
-          if (response.status === 200) {
-            setNewChat("123");
-            console.log("Xóa thành công!", response.data);
-          } else {
-            console.error(
-              "Lỗi khi xóa. Trạng thái phản hồi không hợp lệ:",
-              response.status
-            );
-          }
-        } catch (error) {
-          // Xử lý lỗi
-          console.error("Lỗi khi gửi yêu cầu DELETE:", error.message);
+      try {
+        const response = await axios.delete(deleteUrl);
+        // Kiểm tra trạng thái phản hồi (response status)
+        if (response.status === 200) {
+          setNewChat("123");
+          console.log("Xóa thành công!", response.data);
+        } else {
+          console.error(
+            "Lỗi khi xóa. Trạng thái phản hồi không hợp lệ:",
+            response.status
+          );
         }
+      } catch (error) {
+        // Xử lý lỗi
+        console.error("Lỗi khi gửi yêu cầu DELETE:", error.message);
+      }
     }
   };
 

@@ -19,28 +19,50 @@ import { ChatState } from "../Context/ChatProvider";
 
 const IsolatedModal = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { selectedChat, setSelectedChat } = ChatState();
+  const { selectedChat, setSelectedChat, setNewChat } = ChatState();
 
   const handleConfirm = async () => {
     console.log("Confirmed!");
-    if (selectedChat?._id) {
-      console.log("««««« huybro »»»»»");
-      const api = `https://pbl3-chatbot.onrender.com/api/user/deleteUser?id=${user._id}`;
-      // try {
-      //   const response = await axios.delete(api);
-      //   if (response) {
-      //     console.log("««««« response »»»»»", response);
-      //   }
-      // } catch (error) {
-      //   console.error("Error fetching history:", error.message);
-      // }
-    }
     if (!selectedChat) {
+      const api = `https://pbl3-chatbot.onrender.com/api/user/deleteUser?id=${user._id}`;
+      try {
+        const response = await axios.delete(api);
+        if (response) {
+          console.log({
+            message: "Delete successfully",
+            payload: response,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching history:", error.message);
+      }
+    }
+    if (selectedChat && selectedChat._id != 123) {
       console.log("««««« here »»»»»");
+      const deleteUrl = `https://pbl3-chatbot.onrender.com/api/history/delete?id=${selectedChat._id}`;
+      try {
+        const response = await axios.delete(deleteUrl);
+        // Kiểm tra trạng thái phản hồi (response status)
+        if (response.status === 200) {
+          setNewChat("123");
+          console.log({
+            message: "Delete successfully",
+            payload: response,
+          });
+        } else {
+          console.error(
+            "Lỗi khi xóa. Trạng thái phản hồi không hợp lệ:",
+            response.status
+          );
+        }
+      } catch (error) {
+        // Xử lý lỗi
+        console.error("Lỗi khi gửi yêu cầu DELETE:", error.message);
+      }
     }
 
     onClose();
-    // window.location.reload();
+    window.location.reload();
   };
   useEffect(() => {
     setSelectedChat(undefined);

@@ -13,7 +13,7 @@ import { useToast } from "@chakra-ui/react";
 var socket;
 
 function Chatbox() {
-  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
+  const ENDPOINT = "http://localhost:2001";
   const [question, setQuestion] = useState("");
   const [displayText, setDisplayText] = useState("");
   const [listQuestion, setListQuestion] = useState<Array<String>[]>([[]]);
@@ -120,7 +120,7 @@ function Chatbox() {
           // nếu chọn new chat, và chưa tồn tại đoạn chat nào hết
           if (!selectedChat || selectedChat._id == 123) {
             const response = await axios.post(
-              "https://pbl3-chatbot.onrender.com/api/history/create",
+              "http://localhost:2001/api/history/create",
               {
                 userId: user._id,
                 question: storeQuestion,
@@ -132,7 +132,7 @@ function Chatbox() {
             setSelectedChat(response.data);
           } else {
             await axios.post(
-              `https://pbl3-chatbot.onrender.com/api/history/create?id=${selectedChat._id}`,
+              `http://localhost:2001/api/history/create?id=${selectedChat._id}`,
               {
                 userId: user._id,
                 question: storeQuestion,
@@ -181,14 +181,23 @@ function Chatbox() {
         borderWidth="1px"
         position="relative"
       >
-        <PerfectScrollbar>
+        <PerfectScrollbar containerRef={(ref) => (containerRef.current = ref)}>
           {listQuestion ? (
             listQuestion.map((value, index) => {
-              // list question and answer
               if (value.length == 2) {
                 return (
                   <>
-                    <Text bg="#dadada" p={3} borderRadius="lg" m={10}>
+                    <Text
+                      ref={(ref) => (textRef.current = ref)}
+                      bg="#dadada"
+                      p={3}
+                      borderRadius="lg"
+                      m={10}
+                      style={{
+                        whiteSpace:
+                          window.innerWidth > 500 ? "pre-line" : "normal",
+                      }}
+                    >
                       {value[0]}
                     </Text>
                     <Text
@@ -197,16 +206,29 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={10}
+                      style={{
+                        whiteSpace:
+                          window.innerWidth > 500 ? "pre-line" : "normal",
+                      }}
                     >
                       {value[1]}
                     </Text>
                   </>
                 );
-                // list question and waiting answer
               } else if (value.length == 1) {
                 return (
                   <>
-                    <Text bg="#dadada" p={3} borderRadius="lg" m={10}>
+                    <Text
+                      ref={(ref) => (textRef.current = ref)}
+                      bg="#dadada"
+                      p={3}
+                      borderRadius="lg"
+                      m={10}
+                      style={{
+                        whiteSpace:
+                          window.innerWidth > 500 ? "pre-line" : "normal",
+                      }}
+                    >
                       {value[0]}
                     </Text>
                     <Text
@@ -216,6 +238,10 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={10}
+                      style={{
+                        whiteSpace:
+                          window.innerWidth > 500 ? "pre-line" : "normal",
+                      }}
                     >
                       Please waiting for answer
                     </Text>
