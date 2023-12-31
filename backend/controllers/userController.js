@@ -20,6 +20,7 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
 
 const registerUser = asyncHandler(async (req, res, next) => {
   const { name, email, password, pic } = req.body;
+  console.log("««««« email »»»»»", email);
 
   if (!name || !email || !password) {
     res.send(400);
@@ -27,31 +28,32 @@ const registerUser = asyncHandler(async (req, res, next) => {
   }
 
   const userExits = await User.findOne({ email });
+  console.log("««««« userExits »»»»»", userExits);
   if (userExits) {
-    res.send(404);
-    throw new Error("User already exists");
-  }
-
-  const user = await User.create({
-    name,
-    email,
-    password,
-    pic,
-  });
-
-  if (user) {
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      pic: user.pic,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+    res.send(404, {
+      message: "User already exists",
     });
   } else {
-    res.status(404);
-    throw new Error("Error creating user");
+    const user = await User.create({
+      name,
+      email,
+      password,
+      pic,
+    });
+    if (user) {
+      res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        pic: user.pic,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(404);
+      throw new Error("Error creating user");
+    }
   }
 });
 

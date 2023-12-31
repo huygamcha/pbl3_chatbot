@@ -117,7 +117,6 @@ function Signup() {
         },
         config
       );
-      console.log("««««« data »»»»»", data);
       toast({
         title: "Registration Successful",
         status: "success",
@@ -127,7 +126,7 @@ function Signup() {
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
       setPicLoading(false);
-      history.push("/");
+      history.push("/chats");
     } catch (error) {
       toast({
         title: "Error Occurred!",

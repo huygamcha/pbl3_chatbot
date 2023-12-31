@@ -49,7 +49,7 @@ function Forgot() {
         isClosable: true,
         position: "bottom",
       });
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      setEmail("");
       history.push("/");
     } catch (error) {
       toast({
