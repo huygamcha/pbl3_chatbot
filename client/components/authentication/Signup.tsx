@@ -117,6 +117,7 @@ function Signup() {
         },
         config
       );
+      console.log("««««« data »»»»»", data);
       toast({
         title: "Registration Successful",
         status: "success",
