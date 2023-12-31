@@ -12,31 +12,39 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { ChatState } from "../Context/ChatProvider";
 
 const IsolatedModal = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { selectedChat, setSelectedChat, newChat, setChatId, setNewChat } =
-    ChatState();
+  const { selectedChat, setSelectedChat } = ChatState();
 
   const handleConfirm = async () => {
     console.log("Confirmed!");
-    const api = `https://pbl3-chatbot.onrender.com/api/user/deleteUser?id=${user._id}`;
-    try {
-      const response = await axios.delete(api);
-      if (response) {
-        console.log("««««« response »»»»»", response);
-      }
-    } catch (error) {
-      console.error("Error fetching history:", error.message);
+    if (selectedChat?._id) {
+      console.log("««««« huybro »»»»»");
+      const api = `https://pbl3-chatbot.onrender.com/api/user/deleteUser?id=${user._id}`;
+      // try {
+      //   const response = await axios.delete(api);
+      //   if (response) {
+      //     console.log("««««« response »»»»»", response);
+      //   }
+      // } catch (error) {
+      //   console.error("Error fetching history:", error.message);
+      // }
+    }
+    if (!selectedChat) {
+      console.log("««««« here »»»»»");
     }
 
     onClose();
     // window.location.reload();
   };
+  useEffect(() => {
+    setSelectedChat(undefined);
+  }, [user.isAdmin]);
   console.log("««««« ok »»»»»", selectedChat);
   return (
     <Box ml={2} as="section">
