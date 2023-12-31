@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import axios from "axios";
+import IsolatedModal from "../ConfirmDialog";
 
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,7 +33,7 @@ const ProfileModal = ({ user, children }) => {
   const [picLoading, setPicLoading] = useState(false);
   const [pic, setPic] = useState();
   const userAdmin = JSON.parse(localStorage.getItem("userInfo")!);
-  const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState(true);
 
   const handleShowPassword = () => {
     setShow(!show);
@@ -49,6 +50,9 @@ const ProfileModal = ({ user, children }) => {
 
   useEffect(() => {
     setAdmin(false);
+    if (user.isAdmin) {
+      setAdmin(true);
+    }
   }, [isOpen, onOpen, onClose]);
 
   const [name, setName] = useState("");
@@ -76,9 +80,9 @@ const ProfileModal = ({ user, children }) => {
           // Authorization: `Bearer ${user.token}`,
         },
       };
-      if (!user.isAdmin) {
+      if (!userAdmin.isAdmin) {
         const { data } = await axios.patch(
-          "https://pbl3-chatbot.onrender.com/api/user",
+          `http://localhost:2001/api/user?id=${user._id}`,
           {
             name,
             password,
@@ -93,6 +97,7 @@ const ProfileModal = ({ user, children }) => {
             name,
             password,
             pic,
+            admin,
           },
           config
         );
@@ -187,11 +192,11 @@ const ProfileModal = ({ user, children }) => {
     setAdmin(!admin);
   };
 
-  useEffect(() => {
-    if (user.isAdmin) {
-      setAdmin(true);
-    }
-  }, [userAdmin]);
+  // useEffect(() => {
+  //   if (user.isAdmin) {
+  //     setAdmin(true);
+  //   }
+  // }, []);
   console.log("««««« userAdmin »»»»»", admin);
   return (
     <>
@@ -245,7 +250,8 @@ const ProfileModal = ({ user, children }) => {
                     <Checkbox
                       // hiển thị khi là admin
                       disabled={!user.isAdmin && !userAdmin.isAdmin}
-                      defaultChecked={admin}
+                      // hiển thị check nếu là admin
+                      defaultChecked={admin && user.isAdmin}
                       onChange={handleAdmin}
                     >
                       Admin

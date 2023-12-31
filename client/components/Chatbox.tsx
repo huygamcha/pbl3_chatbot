@@ -181,23 +181,14 @@ function Chatbox() {
         borderWidth="1px"
         position="relative"
       >
-        <PerfectScrollbar containerRef={(ref) => (containerRef.current = ref)}>
+        <PerfectScrollbar>
           {listQuestion ? (
             listQuestion.map((value, index) => {
+              // list question and answer
               if (value.length == 2) {
                 return (
                   <>
-                    <Text
-                      ref={(ref) => (textRef.current = ref)}
-                      bg="#dadada"
-                      p={3}
-                      borderRadius="lg"
-                      m={10}
-                      style={{
-                        whiteSpace:
-                          window.innerWidth > 500 ? "pre-line" : "normal",
-                      }}
-                    >
+                    <Text bg="#dadada" p={3} borderRadius="lg" m={10}>
                       {value[0]}
                     </Text>
                     <Text
@@ -206,29 +197,16 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={10}
-                      style={{
-                        whiteSpace:
-                          window.innerWidth > 500 ? "pre-line" : "normal",
-                      }}
                     >
                       {value[1]}
                     </Text>
                   </>
                 );
+                // list question and waiting answer
               } else if (value.length == 1) {
                 return (
                   <>
-                    <Text
-                      ref={(ref) => (textRef.current = ref)}
-                      bg="#dadada"
-                      p={3}
-                      borderRadius="lg"
-                      m={10}
-                      style={{
-                        whiteSpace:
-                          window.innerWidth > 500 ? "pre-line" : "normal",
-                      }}
-                    >
+                    <Text bg="#dadada" p={3} borderRadius="lg" m={10}>
                       {value[0]}
                     </Text>
                     <Text
@@ -238,10 +216,6 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={10}
-                      style={{
-                        whiteSpace:
-                          window.innerWidth > 500 ? "pre-line" : "normal",
-                      }}
                     >
                       Please waiting for answer
                     </Text>

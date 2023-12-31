@@ -545,9 +545,7 @@ const Navigation = () => {
                           <ProfileModal user={user}>
                             <TbEdit cursor="pointer" color="#f2951d" />
                           </ProfileModal>
-
-                          {/* delete */}
-                          <IsolatedModal key={idx} user={user} />
+                          <IsolatedModal key={idx} user={user}></IsolatedModal>
                         </Box>
                       </Td>
                     </Tr>

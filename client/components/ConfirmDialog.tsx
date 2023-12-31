@@ -14,12 +14,16 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import React, { useRef } from "react";
 import { MdOutlineDelete } from "react-icons/md";
+import { useHistory } from "react-router-dom";
+import { ChatState } from "../Context/ChatProvider";
 
 const IsolatedModal = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { selectedChat, setSelectedChat, newChat, setChatId, setNewChat } =
+    ChatState();
+
   const handleConfirm = async () => {
     console.log("Confirmed!");
-
     const api = `https://pbl3-chatbot.onrender.com/api/user/deleteUser?id=${user._id}`;
     try {
       const response = await axios.delete(api);
@@ -29,15 +33,17 @@ const IsolatedModal = ({ user }) => {
     } catch (error) {
       console.error("Error fetching history:", error.message);
     }
-    window.location.reload();
+
     onClose();
+    // window.location.reload();
   };
+  console.log("««««« ok »»»»»", selectedChat);
   return (
     <Box ml={2} as="section">
       <Button onClick={onOpen} fontSize="20px" colorScheme="red" p={0}>
-        {/* {user.courseTitle} */}
         <MdOutlineDelete />
       </Button>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -45,10 +51,11 @@ const IsolatedModal = ({ user }) => {
           <ModalCloseButton />
           <ModalBody>Are you want to delete?</ModalBody>
 
-          <ModalFooter>
+          <ModalFooter display="flex" justifyContent="space-between">
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Cancel
             </Button>
+
             <Button colorScheme="red" mr={3} onClick={handleConfirm}>
               Delete
             </Button>

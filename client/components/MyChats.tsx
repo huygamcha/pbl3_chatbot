@@ -8,6 +8,10 @@ import React from "react";
 import { ChatState } from "../Context/ChatProvider";
 import { clsx } from "clsx";
 import "./MyChats.css";
+import { MdOutlineDelete } from "react-icons/md";
+import IsolatedModal from "./ConfirmDialog";
+import PerfectScrollbar from "react-perfect-scrollbar";
+
 // import { styles } from "";
 const MyChats = () => {
   const { selectedChat, setSelectedChat, newChat, setChatId, setNewChat } =
@@ -48,7 +52,7 @@ const MyChats = () => {
       }
     };
 
-    fetchData(); // Gọi hàm fetchData ngay sau khi định nghĩa nó
+    fetchData(); // lấy lịch sử chat của user
   }, []);
 
   // reload lại trang khi có một đoạn chat mới ( chưa thử trên mô hình)
@@ -81,8 +85,6 @@ const MyChats = () => {
       const deleteUrl = `https://pbl3-chatbot.onrender.com/api/history/delete?id=${selectedChat._id}`;
       if (window.confirm("Do you want to delete this chat?"))
         try {
-          // Gửi yêu cầu DELETE bằng Axios
-
           const response = await axios.delete(deleteUrl);
           // Kiểm tra trạng thái phản hồi (response status)
           if (response.status === 200) {
@@ -101,7 +103,6 @@ const MyChats = () => {
     }
   };
 
-  console.log("««««« selectedChat »»»»»", selectedChat);
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
@@ -136,34 +137,37 @@ const MyChats = () => {
         borderRadius="lg"
         overflowY="hidden"
       >
-        {value ? (
-          <Stack>
-            {value.map((chat, index) => (
-              <Box
-                key={index}
-                onClick={() => handleClick(chat)}
-                cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                color={selectedChat === chat ? "white" : "black"}
-                px={3}
-                py={2}
-                borderRadius="lg"
-              >
-                <Text>
-                  <p className="image">
-                    {chat.question[0]}
-                    <DeleteIcon
-                      onClick={handleDelete}
-                      style={{ font: "30px" }}
-                    ></DeleteIcon>{" "}
-                  </p>
-                </Text>
-              </Box>
-            ))}
-          </Stack>
-        ) : (
-          <>123</>
-        )}
+        <PerfectScrollbar>
+          {value ? (
+            <Stack>
+              {value.map((chat, index) => (
+                <Box
+                  key={index}
+                  onClick={() => handleClick(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color={selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                >
+                  <PerfectScrollbar>
+                    <Box display="flex" justifyContent="space-between">
+                      <p className="imgCustom">{chat.question[0]}</p>
+                      {index !== 0 ? (
+                        <IsolatedModal user={user}></IsolatedModal>
+                      ) : (
+                        <></>
+                      )}
+                    </Box>
+                  </PerfectScrollbar>
+                </Box>
+              ))}
+            </Stack>
+          ) : (
+            <>123</>
+          )}
+        </PerfectScrollbar>
       </Box>
     </Box>
   );

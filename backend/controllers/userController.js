@@ -94,7 +94,8 @@ const searchUsers = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
   try {
-    const userId = req.user._id;
+    const userId = req.query.id;
+
     let { password } = req.body;
 
     let payload;
@@ -193,7 +194,7 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
     console.log("«««««userId  »»»»»", userId);
     let { password } = req.body;
     let payload;
-
+    console.log("««««« req.body »»»»»", req.body);
     if (password) {
       const salt = await bcrypt.genSalt(10); // 10 ký tự ABCDEFGHIK + 123456
       // generate password = salt key + hash key
@@ -208,7 +209,7 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
       typeof password === undefined;
       payload = await User.findOneAndUpdate(
         { _id: userId },
-        { ...req.body, password: password },
+        { ...req.body, password: password, isAdmin: req.body.admin },
         { new: true }
       );
     }
