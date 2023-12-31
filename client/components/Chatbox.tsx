@@ -193,10 +193,6 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={10}
-                      style={{
-                        whiteSpace:
-                          window.innerWidth > 500 ? "pre-line" : "normal",
-                      }}
                     >
                       {value[0]}
                     </Text>
@@ -206,10 +202,6 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={10}
-                      style={{
-                        whiteSpace:
-                          window.innerWidth > 500 ? "pre-line" : "normal",
-                      }}
                     >
                       {value[1]}
                     </Text>
@@ -224,10 +216,6 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={10}
-                      style={{
-                        whiteSpace:
-                          window.innerWidth > 500 ? "pre-line" : "normal",
-                      }}
                     >
                       {value[0]}
                     </Text>
@@ -238,10 +226,6 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={10}
-                      style={{
-                        whiteSpace:
-                          window.innerWidth > 500 ? "pre-line" : "normal",
-                      }}
                     >
                       Please waiting for answer
                     </Text>
