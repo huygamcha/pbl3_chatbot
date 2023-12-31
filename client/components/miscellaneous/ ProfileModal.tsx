@@ -213,7 +213,7 @@ const ProfileModal = ({ user, children }) => {
       <Modal size="xl" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
 
-        <ModalContent h="80%">
+        <ModalContent h="90%">
           <ModalHeader
             display="flex"
             justifyContent="space-between"
