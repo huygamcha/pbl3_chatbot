@@ -26,12 +26,16 @@ const registerUser = asyncHandler(async (req, res, next) => {
     res.send(400);
     throw new Error("Invalid username");
   }
+  const error = [];
 
   const userExits = await User.findOne({ email });
-  console.log("««««« userExits »»»»»", userExits);
-  if (userExits) {
+  const nameExits = await User.findOne({ name });
+
+  if (userExits) error.push("User already exists");
+  if (nameExits) error.push("Name already exists");
+  if (error.length >= 1) {
     res.send(404, {
-      message: "User already exists",
+      message: error,
     });
   } else {
     const user = await User.create({

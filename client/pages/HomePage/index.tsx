@@ -12,11 +12,12 @@ import {
 import Login from "../../components/authentication/Login";
 import Signup from "../../components/authentication/Signup";
 import Forgot from "../../components/authentication/Forget";
+import SignupForm from "../../components/authentication/SingUp";
 
 function HomePage() {
   return (
     <Container maxW="xl" centerContent>
-      <Box
+      {/* <Box
         bg="white"
         display="block"
         justifyContent="center"
@@ -28,7 +29,7 @@ function HomePage() {
         <Text fontSize="30px" textAlign="center">
           Home
         </Text>
-      </Box>
+      </Box> */}
       <Box
         bg="white"
         display="block"
@@ -43,6 +44,7 @@ function HomePage() {
             <Tab>Sign in</Tab>
             <Tab>Sign up</Tab>
             <Tab>Forgot password</Tab>
+            <Tab>test</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -53,6 +55,9 @@ function HomePage() {
             </TabPanel>
             <TabPanel>
               <Forgot></Forgot>
+            </TabPanel>
+            <TabPanel>
+              <SignupForm></SignupForm>
             </TabPanel>
           </TabPanels>
         </Tabs>
