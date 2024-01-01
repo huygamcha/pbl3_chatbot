@@ -35,11 +35,24 @@
   .box-error{
   margin-bottom: 30px;
   position: relative;
+ 
   }
   .message-error{
     position: absolute;
     bottom: -25px;
     color: red;
+  }
+
+  .show-password{
+    position: absolute;
+    bottom: -70%;
+    right: 0%;
+  }
+  .show-password:hover{
+    background: transparent !important;
+  }
+  .title{
+    font-weight: bold;
   }
   /* input.error {
     border-color: red;

@@ -11,6 +11,9 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./LogIn.css";
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { IoMdStar } from "react-icons/io";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -18,6 +21,10 @@ function Login() {
   // const [show, setShow] = useState(false);
   const toast = useToast();
   const history = useHistory();
+  const handlePassword = (values, setFieldValue) => {
+    setFieldValue("show", !values.show);
+    console.log("««««« values »»»»»", values);
+  };
 
   const handleClick = async (values, setFieldValue) => {
     // Thực hiện logic khi nút được nhấp
@@ -60,14 +67,13 @@ function Login() {
       });
     }
   };
-
   return (
     <VStack>
       <Formik
         initialValues={{
           email: email,
           password: password,
-          show: false,
+          show: true,
         }}
         validationSchema={Yup.object({
           email: Yup.string()
@@ -87,7 +93,13 @@ function Login() {
           <Form style={{ width: "100%" }}>
             <Box className="box-error">
               <div>
-                <label htmlFor="email">Email Address</label>
+                <Box display="flex" alignItems="center">
+                  <label className="title" htmlFor="email">
+                    Email Address
+                  </label>
+                  <IoMdStar fontSize="10px" color="red"></IoMdStar>
+                </Box>
+
                 <Field
                   placeholder="Enter your email"
                   name="email"
@@ -104,20 +116,43 @@ function Login() {
             </Box>
 
             <Box className="box-error">
-              <label htmlFor="password">Password</label>
-              <Field
-                placeholder="Enter your password"
-                name="password"
-                type={"password"}
-              />
-              <ErrorMessage name="password">
-                {(msg) => (
-                  <div className="message-error" style={{ color: "red" }}>
-                    {msg}
-                  </div>
-                )}
-              </ErrorMessage>
+              <InputGroup display="flex" flexDirection="column">
+                <Box display="flex" alignItems="center">
+                  <label className="title" htmlFor="password">
+                    Password
+                  </label>
+                  <IoMdStar fontSize="10px" color="red"></IoMdStar>
+                </Box>
+
+                <Box>
+                  <Field
+                    placeholder="Enter your password"
+                    name="password"
+                    type={values.show ? "password" : "text"}
+                  />
+                  <InputRightElement>
+                    <Button
+                      padding="0"
+                      onClick={() => handlePassword(values, setFieldValue)}
+                      backgroundColor="transparent"
+                      className="show-password"
+                      size="sm"
+                    >
+                      {values.show ? <FaRegEye /> : <FaRegEyeSlash />}
+                    </Button>
+                  </InputRightElement>
+                </Box>
+                {/* <InputRightElement></InputRightElement> */}
+                <ErrorMessage name="password">
+                  {(msg) => (
+                    <div className="message-error" style={{ color: "red" }}>
+                      {msg}
+                    </div>
+                  )}
+                </ErrorMessage>
+              </InputGroup>
             </Box>
+
             <button type="submit">Submit</button>
             <button
               type="button"

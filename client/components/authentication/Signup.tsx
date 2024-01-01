@@ -12,6 +12,8 @@ import * as Yup from "yup";
 import { Box } from "@chakra-ui/react";
 import "./LogIn.css";
 import { IoMdStar } from "react-icons/io";
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -81,6 +83,10 @@ function Signup() {
     console.log("««««« pic »»»»»", pic);
   };
 
+  const handlePassword = async (values, setFieldValue) => {
+    await setFieldValue("show", !values.show);
+  };
+
   const submitHandler = async (values) => {
     // setPicLoading(true);
     console.log("««««« values »»»»»", values);
@@ -111,9 +117,14 @@ function Signup() {
       setPicLoading(false);
       history.push("/chats");
     } catch (error) {
+      const abe = `${error.response.data.message[0]}${
+        error.response.data.message[1]
+          ? `, ${error.response.data.message[1]}`
+          : ""
+      }`;
       toast({
         title: "Error Occurred!",
-        description: error.response.data.message,
+        description: abe,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -129,6 +140,7 @@ function Signup() {
           name: "",
           email: "",
           password: "",
+          show: true,
         }}
         validationSchema={Yup.object({
           name: Yup.string()
@@ -161,8 +173,10 @@ function Signup() {
             <Box className="box-error">
               <div>
                 <Box display="flex" alignItems="center">
-                  <label htmlFor="name">Your name</label>
-                  <IoMdStar color="red"></IoMdStar>
+                  <label className="title" htmlFor="name">
+                    Your name
+                  </label>
+                  <IoMdStar fontSize="10px" color="red"></IoMdStar>
                 </Box>
                 <Field placeholder="Enter your name" name="name" type="text" />
               </div>
@@ -173,7 +187,12 @@ function Signup() {
 
             <Box className="box-error">
               <div>
-                <label htmlFor="email">Email Address</label>
+                <Box display="flex" alignItems="center">
+                  <label className="title" htmlFor="email">
+                    Email Address
+                  </label>
+                  <IoMdStar fontSize="10px" color="red"></IoMdStar>
+                </Box>
                 <Field
                   placeholder="Enter your email"
                   name="email"
@@ -186,19 +205,51 @@ function Signup() {
             </Box>
 
             <Box className="box-error">
-              <label htmlFor="password">Password</label>
-              <Field
-                placeholder="Enter your password"
-                name="password"
-                type={"password"}
-              />
-              <ErrorMessage name="password">
-                {(msg) => <div className="message-error">{msg}</div>}
-              </ErrorMessage>
+              <InputGroup display="flex" flexDirection="column">
+                <Box display="flex" alignItems="center">
+                  <label className="title" htmlFor="password">
+                    Password
+                  </label>
+                  <IoMdStar fontSize="10px" color="red"></IoMdStar>
+                </Box>
+
+                <Box>
+                  <Field
+                    placeholder="Enter your password"
+                    name="password"
+                    type={values.show ? "password" : "text"}
+                  />
+                  <InputRightElement>
+                    <Button
+                      padding="0"
+                      onClick={() => handlePassword(values, setFieldValue)}
+                      backgroundColor="transparent"
+                      className="show-password"
+                      size="sm"
+                    >
+                      {values.show ? <FaRegEye /> : <FaRegEyeSlash />}
+                    </Button>
+                  </InputRightElement>
+                </Box>
+                {/* <InputRightElement></InputRightElement> */}
+                <ErrorMessage name="password">
+                  {(msg) => (
+                    <div className="message-error" style={{ color: "red" }}>
+                      {msg}
+                    </div>
+                  )}
+                </ErrorMessage>
+              </InputGroup>
             </Box>
 
             <Box className="box-error">
-              <label htmlFor="passwordConfirm">Confirm Password</label>
+              <Box display="flex" alignItems="center">
+                <label className="title" htmlFor="passwordConfirm">
+                  Confirm Password
+                </label>
+                <IoMdStar fontSize="10px" color="red"></IoMdStar>
+              </Box>
+
               <Field
                 placeholder="Confirm your password"
                 name="passwordConfirm"
@@ -210,8 +261,11 @@ function Signup() {
             </Box>
 
             <Box className="box-error">
-              <label htmlFor="avatar">Select Avatar</label>
+              <label className="title" htmlFor="avatar">
+                Select Avatar
+              </label>
               <Input
+                fontSize="10px"
                 type="file"
                 p={1.5}
                 accept="image/*"

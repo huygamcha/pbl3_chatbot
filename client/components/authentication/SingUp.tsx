@@ -139,6 +139,7 @@ function Signup() {
       setPicLoading(false);
     }
   };
+
   return (
     <VStack>
       <FormControl id="name" isRequired>
