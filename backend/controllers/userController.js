@@ -72,15 +72,15 @@ const authUser = asyncHandler(async (req, res) => {
       { isOnline: true },
       { new: true }
     );
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      pic: user.pic,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-    });
+    if (payload.isOnline) {
+      res.send(400, {
+        message: "This account is online, you can't access it",
+      });
+    } else {
+      res.send(200, {
+        payload: payload,
+      });
+    }
   } else {
     res.status(404);
     throw new Error("Invalid password or email ");
