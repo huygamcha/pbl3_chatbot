@@ -78,9 +78,11 @@ const authUser = asyncHandler(async (req, res) => {
         { isOnline: true },
         { new: true }
       );
-      res.send(200, {
-        message: payload,
-      });
+      if (payload) {
+        res.send(200, {
+          message: payload,
+        });
+      }
     }
   } else {
     res.status(404);
