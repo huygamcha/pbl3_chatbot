@@ -1,0 +1,16 @@
+
+ 
+  .box-error-profile{
+  position: relative;
+ 
+  }
+  .show-password-profile{
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    background: transparent !important
+  }
+  .show-password-profile:hover{
+    background: transparent !important;
+  }
+

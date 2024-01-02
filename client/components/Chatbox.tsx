@@ -97,8 +97,12 @@ function Chatbox() {
 
   // call history
   useEffect(() => {
-    console.log("««««« response.data here»»»»»", selectedChat);
+    // console.log("««««« response.data here»»»»»", selectedChat);
+    const historyChat = JSON.parse(localStorage.getItem("chat")!);
 
+    if (!selectedChat) {
+      setSelectedChat(historyChat);
+    }
     setListQuestion([]);
     if (selectedChat?._id != 123) {
       //  lưu câu trả lời và câu hỏi vào trong list
@@ -145,9 +149,10 @@ function Chatbox() {
             );
             // để bên kia list chat hiển thị lại
             setNewChat(response.data);
-            console.log("««««« responseokok) »»»»»", response.data);
             setSelectedChat(response.data);
-            console.log("«««««  »»»»»", selectedChat);
+
+            // lưu đoạn chat được tạo ra để khi load lại thì nó sẽ hiện thị ở đoạn chat đó, thay vì là undefined
+            localStorage.setItem("chat", JSON.stringify(response.data));
           } else {
             const response = await axios.post(
               `https://pbl3-chatbot.onrender.com/api/history/create?id=${selectedChat._id}`,
@@ -174,6 +179,7 @@ function Chatbox() {
       storageHistory();
     }
 
+    // thêm câu trả lời vào mảng
     for (let i = 0; i < updatedListQuestion.length; i++) {
       if (updatedListQuestion[i].length === 1) {
         updatedListQuestion[i].push(answer);
@@ -184,9 +190,7 @@ function Chatbox() {
     setListQuestion(updatedListQuestion);
   }, [answer]);
 
-  console.log("««««« selectedChat123 »»»»»", selectedChat);
-  // console.log("««««« listQuestion »»»»»", listQuestion);
-  // console.log("««««« user._id »»»»»", user._id);
+  // console.log("««««« selectedChat123 »»»»»", selectedChat);
 
   return (
     <Box width="80%" display="flex" flexDir="column" h="100%">

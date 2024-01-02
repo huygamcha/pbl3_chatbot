@@ -14,9 +14,17 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 
 // import { styles } from "";
 const MyChats = () => {
-  const { selectedChat, setSelectedChat, newChat, setChatId, setNewChat } =
-    ChatState();
+  const {
+    selectedChat,
+    setSelectedChat,
+    newChat,
+    setChatId,
+    setSelectedChatHistory,
+    selectedChatHistory,
+  } = ChatState();
+
   const user = JSON.parse(localStorage.getItem("userInfo")!);
+
   interface Chat {
     _id: string;
     // Thêm các thuộc tính khác của chat
@@ -28,6 +36,7 @@ const MyChats = () => {
   const toast = useToast();
 
   const handleClick = (chat) => {
+    localStorage.setItem("chat", JSON.stringify(chat));
     setSelectedChat(chat);
     setChatId(chat._id); // Lưu ID của chat (nếu cần)
   };
@@ -79,29 +88,15 @@ const MyChats = () => {
     fetchData(); // Gọi hàm fetchData ngay sau khi định nghĩa nó
   }, [newChat]);
 
-  const handleDelete = async () => {
-    console.log("«««««123  »»»»»", selectedChat._id);
-    if (selectedChat._id != 123) {
-      const deleteUrl = `https://pbl3-chatbot.onrender.com/api/history/delete?id=${selectedChat._id}`;
-      try {
-        const response = await axios.delete(deleteUrl);
-        // Kiểm tra trạng thái phản hồi (response status)
-        if (response.status === 200) {
-          setNewChat("123");
-          console.log("Xóa thành công!", response.data);
-        } else {
-          console.error(
-            "Lỗi khi xóa. Trạng thái phản hồi không hợp lệ:",
-            response.status
-          );
-        }
-      } catch (error) {
-        // Xử lý lỗi
-        console.error("Lỗi khi gửi yêu cầu DELETE:", error.message);
-      }
+  useEffect(() => {
+    const historyChat = JSON.parse(localStorage.getItem("chat")!);
+
+    if (!selectedChat) {
+      setSelectedChat(historyChat);
     }
-  };
-  console.log("««««« selectedChat my chat »»»»»", selectedChat);
+  }, []);
+
+  console.log("«««««selectedChat  »»»»»", selectedChat);
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
@@ -144,8 +139,18 @@ const MyChats = () => {
                   key={index}
                   onClick={() => handleClick(chat)}
                   cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                  color={selectedChat === chat ? "white" : "black"}
+                  bg={
+                    selectedChat?._id == chat?._id ||
+                    selectedChatHistory?._id == chat?._id
+                      ? "#38B2AC"
+                      : "#E8E8E8"
+                  }
+                  color={
+                    selectedChat?._id == chat?._id ||
+                    selectedChatHistory?._id == chat?._id
+                      ? "white"
+                      : "black"
+                  }
                   px={3}
                   py={2}
                   borderRadius="lg"

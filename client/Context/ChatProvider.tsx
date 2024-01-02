@@ -8,6 +8,8 @@ interface ChatProviderProps {
 export interface ChatContextProps {
   selectedChat: any;
   setSelectedChat: React.Dispatch<React.SetStateAction<any>>;
+  selectedChatHistory: any;
+  setSelectedChatHistory: React.Dispatch<React.SetStateAction<any>>;
   newChat: any;
   setNewChat: React.Dispatch<React.SetStateAction<any>>;
   user: any;
@@ -25,6 +27,7 @@ export const ChatContext = createContext<ChatContextProps | undefined>(
 
 const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState<boolean>();
+  const [selectedChatHistory, setSelectedChatHistory] = useState<boolean>();
   const [user, setUser] = useState<any>();
   const [chatId, setChatId] = useState<any[]>([]);
   const [chats, setChats] = useState<any>();
@@ -44,7 +47,6 @@ const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
 
     setUser(currentUser);
 
-    console.log("««««« history »»»»»", location.pathname);
     if (location.pathname == "/reset-password") {
       // history.push("/reset-password");
     } else if (!userInfo) history.push("/");
@@ -53,6 +55,8 @@ const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   return (
     <ChatContext.Provider
       value={{
+        selectedChatHistory,
+        setSelectedChatHistory,
         newChat,
         setNewChat,
         selectedChat,

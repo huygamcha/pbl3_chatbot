@@ -2,6 +2,10 @@ import { ViewIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
+import { IoMdStar } from "react-icons/io";
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
+import "./Profile.css";
 
 import {
   Modal,
@@ -52,6 +56,7 @@ const ProfileModal = ({ user, children }) => {
     if (user.isAdmin) {
       setAdmin(true);
     }
+    setPassword("");
   }, [isOpen, onOpen, onClose]);
 
   const [name, setName] = useState("");
@@ -59,6 +64,7 @@ const ProfileModal = ({ user, children }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   let isError = true;
   let isName = false;
+  let isLength = false;
 
   const handleUpdate = async () => {
     if (password !== confirmPassword) {
@@ -182,6 +188,12 @@ const ProfileModal = ({ user, children }) => {
     isError = false;
   }
 
+  if (password.length == 1 || password.length == 2) {
+    isLength = true;
+  } else if (password.length >= 3) {
+    isLength = false;
+  }
+
   if (name == "") {
     isName = true;
   }
@@ -275,9 +287,9 @@ const ProfileModal = ({ user, children }) => {
                   </FormErrorMessage>
                 </FormControl>
 
-                <FormControl id="password" pb={5}>
+                <FormControl id="password" pb={5} isInvalid={isLength}>
                   <FormLabel>New password</FormLabel>
-                  <InputGroup>
+                  <InputGroup className="box-error-profile">
                     <Input
                       p={2}
                       pr="4.5rem"
@@ -287,14 +299,19 @@ const ProfileModal = ({ user, children }) => {
                     />
                     <InputRightElement width="4.5rem">
                       <Button
+                        p={0}
+                        className="show-password-profile"
                         h="1.75rem"
                         size="sm"
                         onClick={handleShowPassword}
                       >
-                        {show ? "Hide" : "Show"}
+                        {show ? <FaRegEye /> : <FaRegEyeSlash />}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
+                  <FormErrorMessage>
+                    Password at least 3 characters.
+                  </FormErrorMessage>
                 </FormControl>
 
                 <FormControl id="password" pb={5} isInvalid={isError}>
@@ -307,15 +324,6 @@ const ProfileModal = ({ user, children }) => {
                       placeholder="Confirm password"
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
-                    <InputRightElement width="4.5rem">
-                      <Button
-                        h="1.75rem"
-                        size="sm"
-                        onClick={handleShowCPassword}
-                      >
-                        {showConfirm ? "Hide" : "Show"}
-                      </Button>
-                    </InputRightElement>
                   </InputGroup>
                   <FormErrorMessage>Password does not match.</FormErrorMessage>
                 </FormControl>

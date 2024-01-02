@@ -52,6 +52,8 @@ function SideDrawer() {
 
   const logoutHandler = async () => {
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("chat");
+
     try {
       const config = {
         headers: {
