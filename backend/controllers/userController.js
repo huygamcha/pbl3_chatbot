@@ -66,6 +66,12 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
   if (user && (await user.matchPassword(password))) {
+    // set status user
+    payload = await User.findOneAndUpdate(
+      { email: email },
+      { isOnline: true },
+      { new: true }
+    );
     res.json({
       _id: user._id,
       name: user.name,

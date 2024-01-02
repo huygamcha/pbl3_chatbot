@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    isOnline: {
+      type: Boolean,
+      default: false,
+    },
     passwordResetToken: { type: String },
     passwordResetExpires: { type: Date },
   },

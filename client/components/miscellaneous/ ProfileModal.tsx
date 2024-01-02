@@ -23,7 +23,6 @@ import {
 } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import axios from "axios";
-import IsolatedModal from "../ConfirmDialog";
 
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -108,11 +107,13 @@ const ProfileModal = ({ user, children }) => {
         status: "success",
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
+
       onClose();
       setPicLoading(false);
       setPassword("");
+      window.location.reload();
       setConfirmPassword("");
     } catch (error) {
       toast({

@@ -69,7 +69,6 @@ const Navigation = () => {
 
   const toast = useToast();
 
-  // const IsolatedModal = ({ course }) => {
   //   const { isOpen, onOpen, onClose } = useDisclosure();
   //   const handleConfirm = () => {
   //     console.log("Confirmed!");
@@ -237,17 +236,6 @@ const Navigation = () => {
       setAllChats((prev) => value?.totalQuestions + prev);
     });
   }, [allChat]);
-
-  // const handleClick = () => {
-  //   console.log("««««« huygmc »»»»»");
-  //   onOpen;
-  // };
-
-  // const handleDelete = (e) => {
-  //   console.log("««««« e »»»»»", e._id);
-  //   setSelectedUserId(e._id);
-  //   onOpen();
-  // };
 
   console.log("«« ««« response »»»»»", allUser);
   console.log("««««« allChat »»»»»", allChat ? allChat : "N/A");
