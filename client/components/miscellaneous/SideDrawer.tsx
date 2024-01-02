@@ -50,8 +50,23 @@ function SideDrawer() {
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("userInfo")!);
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
     localStorage.removeItem("userInfo");
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.patch(
+        `https://pbl3-chatbot.onrender.com/api/user?id=${user._id}`,
+        {
+          isOnline: false,
+        }
+      );
+    } catch (error) {
+      console.log("««««« error »»»»»", error);
+    }
     history.push("/");
   };
 
@@ -84,7 +99,7 @@ function SideDrawer() {
       setSearchResult(data);
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: "Error Occurred!",
         description: "Failed to Load the Search Results",
         status: "error",
         duration: 5000,
