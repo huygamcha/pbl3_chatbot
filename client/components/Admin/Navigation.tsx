@@ -53,6 +53,7 @@ const Navigation = () => {
     email: String;
     isAdmin: boolean;
     pic: string;
+    isOnline: boolean;
   }
 
   interface allNewUser {
@@ -397,84 +398,6 @@ const Navigation = () => {
                   </Text>
                 </Box>
               </Box>
-              <Box
-                my={5}
-                w="10%"
-                p={4}
-                borderRadius="10px"
-                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                bg="#e8e8e8"
-              >
-                Top chat
-              </Box>
-              <Box
-                mt={0}
-                display="flex"
-                justifyContent="space-between"
-                alignItems="end"
-              >
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                  height="100px"
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Top 3:
-                  </Text>
-                  <Text fontWeight="bold">
-                    {allChat ? allChat[2].user?.name : "N/A"} (
-                    {allChat ? allChat[2].totalQuestions : "N/A"})
-                  </Text>
-                </Box>
-
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                  height="200px"
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Top 1:
-                  </Text>
-                  <Text fontWeight="bold">
-                    {allChat ? allChat[0].user?.name : "N/A"} (
-                    {allChat ? allChat[0].totalQuestions : "N/A"})
-                  </Text>
-                </Box>
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                  height="150px"
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Top 2:
-                  </Text>
-                  <Text fontWeight="bold">
-                    {allChat ? allChat[1].user?.name : "N/A"} (
-                    {allChat ? allChat[1].totalQuestions : "N/A"})
-                  </Text>
-                </Box>
-              </Box>
             </Box>
           ) : allUser ? (
             <TableContainer>
@@ -487,6 +410,7 @@ const Navigation = () => {
                     <Th>STT</Th>
                     <Th>Name</Th>
                     <Th>email</Th>
+                    <Th>status</Th>
                     <Th>admin</Th>
                     <Th>avatar</Th>
                     <Th>action</Th>
@@ -504,6 +428,26 @@ const Navigation = () => {
                       <Td>{user.name}</Td>
                       <Td>{user.email}</Td>
                       <Td>
+                        {user.isOnline ? (
+                          <CheckIcon
+                            bg="#309a49"
+                            p={0}
+                            fontSize="15px"
+                            borderRadius="50%"
+                            color="#309a49"
+                          ></CheckIcon>
+                        ) : (
+                          <CheckIcon
+                            bg="red"
+                            p={0}
+                            fontSize="15px"
+                            borderRadius="50%"
+                            color="red"
+                          ></CheckIcon>
+                        )}
+                      </Td>
+
+                      <Td>
                         {user.isAdmin ? (
                           <CheckIcon
                             bg="teal"
@@ -516,6 +460,7 @@ const Navigation = () => {
                           ""
                         )}
                       </Td>
+
                       <Td>
                         <Avatar
                           size="sm"
