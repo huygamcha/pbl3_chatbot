@@ -410,9 +410,9 @@ const Navigation = () => {
                     <Th>STT</Th>
                     <Th>Name</Th>
                     <Th>email</Th>
-                    <Th>status</Th>
-                    <Th>admin</Th>
-                    <Th>avatar</Th>
+                    <Th textAlign="center">status</Th>
+                    <Th textAlign="center">admin</Th>
+                    <Th textAlign="center">avatar</Th>
                     <Th>action</Th>
                   </Tr>
                 </Thead>
@@ -427,7 +427,7 @@ const Navigation = () => {
                       </Td>
                       <Td>{user.name}</Td>
                       <Td>{user.email}</Td>
-                      <Td>
+                      <Td textAlign="center">
                         {user.isOnline ? (
                           <CheckIcon
                             bg="#309a49"
@@ -447,7 +447,7 @@ const Navigation = () => {
                         )}
                       </Td>
 
-                      <Td>
+                      <Td textAlign="center">
                         {user.isAdmin ? (
                           <CheckIcon
                             bg="teal"
@@ -461,7 +461,7 @@ const Navigation = () => {
                         )}
                       </Td>
 
-                      <Td>
+                      <Td textAlign="center">
                         <Avatar
                           size="sm"
                           cursor="pointer"
