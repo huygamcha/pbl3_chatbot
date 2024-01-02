@@ -54,7 +54,7 @@ function Login() {
         isClosable: true,
         position: "bottom",
       });
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data.message));
       history.push("/chats");
     } catch (error) {
       toast({
