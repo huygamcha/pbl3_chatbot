@@ -13,7 +13,7 @@ import { useToast } from "@chakra-ui/react";
 var socket;
 
 function Chatbox() {
-  const ENDPOINT = "http://localhost:2001";
+  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
   const [question, setQuestion] = useState("");
   const [displayText, setDisplayText] = useState("");
   const [listQuestion, setListQuestion] = useState<Array<String>[]>([[]]);
@@ -38,9 +38,20 @@ function Chatbox() {
   const handleSubmit = async () => {
     setDisplayText(question);
     setStoreQuestion(question);
+    const vietnameseRegex =
+      /[àáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳỹỷỵ]/iu;
+
     try {
+      let api = "";
+      console.log("««««« question here we go »»»»»", question);
+      if (vietnameseRegex.test(question)) {
+        api =
+          "https://easy-partially-cicada.ngrok-free.app/vn_query_description";
+      } else {
+        api = "https://easy-partially-cicada.ngrok-free.app/query_description";
+      }
       const response = await axios.post(
-        "https://easy-partially-cicada.ngrok-free.app/query_description",
+        `${api}`,
         {
           query: question,
         },
@@ -89,6 +100,7 @@ function Chatbox() {
   useEffect(() => {
     setListQuestion([]);
     if (selectedChat?._id != 123) {
+      //  lưu câu trả lời và câu hỏi vào trong list
       for (let i = 0; i < selectedChat?.question.length; i++) {
         const tempChat = [selectedChat?.question[i], selectedChat?.answer[i]];
         setListQuestion((prev) => [...prev, tempChat]);
@@ -109,6 +121,8 @@ function Chatbox() {
   useEffect(() => {
     // Tạo một bản sao của listQuestion để tránh thay đổi trực tiếp state
     const updatedListQuestion = [...listQuestion];
+
+    // nếu có câu hỏi và câu trả lời
     if (storeQuestion !== "" && answer !== "") {
       const storageHistory = async () => {
         try {
@@ -120,7 +134,20 @@ function Chatbox() {
           // nếu chọn new chat, và chưa tồn tại đoạn chat nào hết
           if (!selectedChat || selectedChat._id == 123) {
             const response = await axios.post(
-              "http://localhost:2001/api/history/create",
+              "https://pbl3-chatbot.onrender.com/api/history/create",
+              {
+                userId: user._id,
+                question: storeQuestion,
+                answer: answer,
+              },
+              config
+            );
+            // để bên kia list chat hiển thị lại
+            setNewChat(response.data);
+            setSelectedChat(response.data);
+          } else {
+            const response = await axios.post(
+              `https://pbl3-chatbot.onrender.com/api/history/create?id=${selectedChat._id}`,
               {
                 userId: user._id,
                 question: storeQuestion,
@@ -129,21 +156,10 @@ function Chatbox() {
               config
             );
             setNewChat(response.data);
-            setSelectedChat(response.data);
-          } else {
-            await axios.post(
-              `http://localhost:2001/api/history/create?id=${selectedChat._id}`,
-              {
-                userId: user._id,
-                question: storeQuestion,
-                answer: answer,
-              },
-              config
-            );
           }
         } catch (error) {
           toast({
-            title: "Error Occured!",
+            title: "Error Occurred!",
             description: error.response.data.message,
             status: "error",
             duration: 5000,
@@ -165,9 +181,8 @@ function Chatbox() {
     setListQuestion(updatedListQuestion);
   }, [answer]);
   console.log("««««« selectedChat123 »»»»»", selectedChat);
-
-  console.log("««««« listQuestion »»»»»", listQuestion);
-  console.log("««««« user._id »»»»»", user._id);
+  // console.log("««««« listQuestion »»»»»", listQuestion);
+  // console.log("««««« user._id »»»»»", user._id);
 
   return (
     <Box width="80%" display="flex" flexDir="column" h="100%">

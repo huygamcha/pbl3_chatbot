@@ -65,13 +65,11 @@ const Navigation = () => {
   const [allNewUser, setAllNewUser] = useState<allNewUser | undefined>();
   const [value, setValue] = useState<Chat[]>([]);
   const [allChats, setAllChats] = useState<number>(0);
-  // const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const toast = useToast();
 
-  //   const { isOpen, onOpen, onClose } = useDisclosure();
-  //   const handleConfirm = () => {
   //     console.log("Confirmed!");
   //     onClose();
   //   };

@@ -67,7 +67,6 @@ const IsolatedModal = ({ user }) => {
   useEffect(() => {
     setSelectedChat(undefined);
   }, [user.isAdmin]);
-  console.log("««««« ok »»»»»", selectedChat);
   return (
     <Box ml={2} as="section">
       <Button onClick={onOpen} fontSize="20px" colorScheme="red" p={0}>
