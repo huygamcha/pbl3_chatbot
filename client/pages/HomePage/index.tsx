@@ -44,7 +44,6 @@ function HomePage() {
             <Tab>Sign in</Tab>
             <Tab>Sign up</Tab>
             <Tab>Forgot password</Tab>
-            <Tab>test</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -55,9 +54,6 @@ function HomePage() {
             </TabPanel>
             <TabPanel>
               <Forgot></Forgot>
-            </TabPanel>
-            <TabPanel>
-              <SignupForm></SignupForm>
             </TabPanel>
           </TabPanels>
         </Tabs>

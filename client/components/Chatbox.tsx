@@ -178,7 +178,7 @@ function Chatbox() {
         p={3}
         bg="white"
         borderTopRadius="lg"
-        borderWidth="1px"
+        // borderWidth="1px"
         position="relative"
       >
         <PerfectScrollbar containerRef={(ref) => (containerRef.current = ref)}>
@@ -240,14 +240,15 @@ function Chatbox() {
       </Box>
 
       <Box
-        // mt={1}
+        justifyContent="space-between"
+        display="flex"
         borderBottomRadius="lg"
-        borderWidth="1px"
         bg="white"
-        p={0}
-        // flex="1"
+        px={1}
       >
         <Input
+          border="1px solid blue"
+          mb={1.5}
           mr={2}
           textColor="black"
           placeholder="Type the question"

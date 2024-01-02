@@ -110,7 +110,6 @@ const ProfileModal = ({ user, children }) => {
         isClosable: true,
         position: "bottom",
       });
-      window.location.reload();
       onClose();
       setPicLoading(false);
       setPassword("");
@@ -192,11 +191,6 @@ const ProfileModal = ({ user, children }) => {
     setAdmin(!admin);
   };
 
-  // useEffect(() => {
-  //   if (user.isAdmin) {
-  //     setAdmin(true);
-  //   }
-  // }, []);
   console.log("««««« userAdmin »»»»»", admin);
   return (
     <>
@@ -213,7 +207,7 @@ const ProfileModal = ({ user, children }) => {
       <Modal size="xl" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
 
-        <ModalContent h="90%">
+        <ModalContent h="80%">
           <ModalHeader
             display="flex"
             justifyContent="space-between"

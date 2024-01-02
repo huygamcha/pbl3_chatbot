@@ -101,8 +101,14 @@ const searchUsers = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   try {
     const userId = req.query.id;
-
     let { password } = req.body;
+
+    const updateUser = await User.findOne({ name: req.body.name });
+    if (updateUser) {
+      res.send(404, {
+        message: "Name already exists",
+      });
+    }
 
     let payload;
     if (password) {

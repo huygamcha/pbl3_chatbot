@@ -120,7 +120,12 @@ function SideDrawer() {
           </Text>
         )}
         {!user.isAdmin ? (
-          <Text fontSize="2xl" fontFamily="Work sans">
+          <Text
+            fontWeight="bold"
+            textTransform="uppercase"
+            fontSize="2xl"
+            fontFamily="Work sans"
+          >
             Chatbot
           </Text>
         ) : (
