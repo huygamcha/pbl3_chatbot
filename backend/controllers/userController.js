@@ -66,19 +66,20 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
   if (user && (await user.matchPassword(password))) {
+    console.log("««««« user.isOnline »»»»»", user.isOnline);
+    // set status user
     if (user.isOnline) {
       res.send(400, {
-        message: "This account is online, you can't access it",
+        message: "User is not online, you can't access it",
       });
     } else {
-      // set status user
       payload = await User.findOneAndUpdate(
         { email: email },
         { isOnline: true },
         { new: true }
       );
       res.send(200, {
-        payload: payload,
+        message: payload,
       });
     }
   } else {
