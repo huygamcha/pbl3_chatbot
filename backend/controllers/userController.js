@@ -99,7 +99,10 @@ const searchUsers = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-  const updateUser = await User.findOne({ name: req.body.name });
+  const updateUser = await User.findOne({
+    name: req.body.name,
+    _id: { $ne: req.query.id },
+  });
 
   if (updateUser) {
     res.send(404, {
@@ -201,7 +204,10 @@ const deleteUser = asyncHandler(async (req, res) => {
 //admin
 
 const updateUserByAdmin = asyncHandler(async (req, res) => {
-  const updateUser = await User.findOne({ name: req.body.name });
+  const updateUser = await User.findOne({
+    name: req.body.name,
+    _id: { $ne: req.query.id },
+  });
 
   if (updateUser) {
     res.send(404, {
