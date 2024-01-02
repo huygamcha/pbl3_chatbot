@@ -101,7 +101,7 @@ const MyChats = () => {
       }
     }
   };
-
+  console.log("««««« selectedChat my chat »»»»»", selectedChat);
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}

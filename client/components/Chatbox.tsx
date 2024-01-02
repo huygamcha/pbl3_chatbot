@@ -146,7 +146,8 @@ function Chatbox() {
             // để bên kia list chat hiển thị lại
             setNewChat(response.data);
             console.log("««««« responseokok) »»»»»", response.data);
-            // setSelectedChat(response.data);
+            setSelectedChat(response.data);
+            console.log("«««««  »»»»»", selectedChat);
           } else {
             const response = await axios.post(
               `https://pbl3-chatbot.onrender.com/api/history/create?id=${selectedChat._id}`,
