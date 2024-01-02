@@ -43,7 +43,6 @@ function Chatbox() {
 
     try {
       let api = "";
-      console.log("««««« question here we go »»»»»", question);
       if (vietnameseRegex.test(question)) {
         api =
           "https://easy-partially-cicada.ngrok-free.app/vn_query_description";
@@ -98,6 +97,8 @@ function Chatbox() {
 
   // call history
   useEffect(() => {
+    console.log("««««« response.data here»»»»»", selectedChat);
+
     setListQuestion([]);
     if (selectedChat?._id != 123) {
       //  lưu câu trả lời và câu hỏi vào trong list
@@ -144,7 +145,8 @@ function Chatbox() {
             );
             // để bên kia list chat hiển thị lại
             setNewChat(response.data);
-            setSelectedChat(response.data);
+            console.log("««««« responseokok) »»»»»", response.data);
+            // setSelectedChat(response.data);
           } else {
             const response = await axios.post(
               `https://pbl3-chatbot.onrender.com/api/history/create?id=${selectedChat._id}`,
@@ -180,6 +182,7 @@ function Chatbox() {
     // Cập nhật state để kích thích việc render lại ở trang này
     setListQuestion(updatedListQuestion);
   }, [answer]);
+
   console.log("««««« selectedChat123 »»»»»", selectedChat);
   // console.log("««««« listQuestion »»»»»", listQuestion);
   // console.log("««««« user._id »»»»»", user._id);
