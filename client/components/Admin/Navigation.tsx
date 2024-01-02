@@ -31,11 +31,10 @@ const Navigation = () => {
     ChatState();
   const [adminSelected, setAdminSelected] = useState("");
   const user = JSON.parse(localStorage.getItem("userInfo")!);
+
   interface Chat {
     _id: string;
-    // Thêm các thuộc tính khác của chat
     question: string[];
-    // Các thuộc tính khác nếu có
   }
 
   interface User {
@@ -70,112 +69,6 @@ const Navigation = () => {
 
   const toast = useToast();
 
-  //     console.log("Confirmed!");
-  //     onClose();
-  //   };
-  //   return (
-  //     <Box as="section">
-  //       <Button onClick={onOpen} size="sm">
-  //         {course.courseTitle}
-  //       </Button>
-  //       <Modal isOpen={isOpen} onClose={onClose}>
-  //         <ModalOverlay />
-  //         <ModalContent>
-  //           <ModalHeader>{course.courseTitle}</ModalHeader>
-  //           <ModalCloseButton />
-  //           <ModalBody>{course.name}</ModalBody>
-
-  //           <ModalFooter>
-  //             <Button colorScheme="blue" mr={3} onClick={handleConfirm}>
-  //               Close
-  //             </Button>
-  //             <Button colorScheme="blue" mr={3} onClick={onClose}>
-  //               Ok
-  //             </Button>
-  //           </ModalFooter>
-  //         </ModalContent>
-  //       </Modal>
-  //     </Box>
-  //   );
-  // };
-
-  // const handleClick = (chat) => {
-  //   setSelectedChat(chat);
-  //   setChatId(chat._id); // Lưu ID của chat (nếu cần)
-  // };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const userId = user._id;
-  //     const config = {
-  //       headers: {
-  //         Authorization: `Bearer ${user.token}`,
-  //       },
-  //     };
-  //     const apiUrl = `https://pbl3-chatbot.onrender.com/api/history/get?id=${userId}`;
-  //     try {
-  //       const response = await axios.get(apiUrl, config);
-  //       const allHistory = response.data;
-  //       allHistory.unshift({ question: ["New chat", "new chat"], _id: "123" });
-  //       setValue(allHistory);
-  //       // Xử lý dữ liệu ở đây
-  //     } catch (error) {
-  //       console.error("Error fetching history:", error.message);
-  //     }
-  //   };
-
-  //   fetchData(); // Gọi hàm fetchData ngay sau khi định nghĩa nó
-  // }, []);
-
-  // reload lại trang khi có một đoạn chat mới ( chưa thử trên mô hình)
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const userId = user._id;
-  //     const config = {
-  //       headers: {
-  //         Authorization: `Bearer ${user.token}`,
-  //       },
-  //     };
-  //     const apiUrl = `https://pbl3-chatbot.onrender.com/api/history/get?id=${userId}`;
-  //     try {
-  //       const response = await axios.get(apiUrl, config);
-  //       const allHistory = response.data;
-  //       allHistory.unshift({ question: ["New chat", "new chat"], _id: "123" });
-  //       setValue(allHistory);
-  //       // Xử lý dữ liệu ở đây
-  //     } catch (error) {
-  //       console.error("Error fetching history:", error.message);
-  //     }
-  //   };
-
-  //   fetchData(); // Gọi hàm fetchData ngay sau khi định nghĩa nó
-  // }, [newChat]);
-
-  // const handleDelete = async () => {
-  //   console.log("«««««123  »»»»»", selectedChat._id);
-  //   if (selectedChat._id != 123) {
-  //     const deleteUrl = `https://pbl3-chatbot.onrender.com/api/history/delete?id=${selectedChat._id}`;
-  //     if (window.confirm("Do you want to delete this chat?"))
-  //       try {
-  //         // Gửi yêu cầu DELETE bằng Axios
-
-  //         const response = await axios.delete(deleteUrl);
-  //         // Kiểm tra trạng thái phản hồi (response status)
-  //         if (response.status === 200) {
-  //           setNewChat("123");
-  //           console.log("Xóa thành công!", response.data);
-  //         } else {
-  //           console.error(
-  //             "Lỗi khi xóa. Trạng thái phản hồi không hợp lệ:",
-  //             response.status
-  //           );
-  //         }
-  //       } catch (error) {
-  //         // Xử lý lỗi
-  //         console.error("Lỗi khi gửi yêu cầu DELETE:", error.message);
-  //       }
-  //   }
-  // };
   useEffect(() => {
     const getAllUser = async () => {
       const config = {
