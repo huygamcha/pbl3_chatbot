@@ -75,12 +75,21 @@ const authUser = asyncHandler(async (req, res) => {
     } else {
       payload = await User.findOneAndUpdate(
         { email: email },
-        { isOnline: true, token: generateToken(user._id) },
+        { isOnline: true },
         { new: true }
       );
       if (payload) {
         res.send(200, {
-          message: payload,
+          message: {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+            pic: user.pic,
+            isAdmin: user.isAdmin,
+            isOnline: user.isOnline,
+            token: generateToken(user._id),
+          },
         });
       }
     }
