@@ -248,7 +248,12 @@ const Navigation = () => {
       </Box>
 
       {/* screen */}
-      <Box width="60%" display="flex" flexDir="column" h="100%">
+      <Box
+        width={{ base: "60%", md: "80%" }}
+        display="flex"
+        flexDir="column"
+        h="100%"
+      >
         <Box
           overflowY="auto"
           alignItems="center"
