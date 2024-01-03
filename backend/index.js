@@ -54,4 +54,6 @@ io.on("connection", (socket) => {
   socket.on("init", (user) => {
     console.log("««««« user »»»»»", user);
   });
+
+  socket.emit("log name user", user.name);
 });
