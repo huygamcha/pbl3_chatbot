@@ -64,6 +64,7 @@ const Navigation = () => {
   const [value, setValue] = useState<Chat[]>([]);
   const [allChats, setAllChats] = useState<number>(0);
   const [allOnline, setAllOnline] = useState<number>(0);
+  const [topChat, setTopChat] = useState<String>("");
 
   const [selectedUserId, setSelectedUserId] = useState(null);
 
@@ -153,6 +154,15 @@ const Navigation = () => {
     allChat?.map((value) => {
       setAllChats((prev) => value?.totalQuestions + prev);
     });
+    if (allChat) {
+      if (
+        allChat[allChat.length - 1]?.totalQuestions < allChat[0]?.totalQuestions
+      ) {
+        setTopChat(allChat[0]?.user.name);
+      } else {
+        setTopChat(allChat[allChat.length - 1]?.user.name);
+      }
+    }
   }, [allChat]);
 
   useEffect(() => {
@@ -171,6 +181,7 @@ const Navigation = () => {
   console.log("««««« allChats »»»»»", allChats);
   console.log("««««« allNewUser »»»»»", allNewUser?.data, allNewUser?.total);
   console.log("««««« allOnline »»»»»", allOnline);
+  console.log("««««« topChat »»»»»", topChat);
   return (
     <>
       <Box
@@ -252,7 +263,7 @@ const Navigation = () => {
             <Box display="flex" flexDirection="column">
               <Box
                 my={5}
-                w="10%"
+                w="20%"
                 p={4}
                 borderRadius="10px"
                 // boxShadow=" 1px 1px 20px 5px #c5c5c5"
@@ -265,11 +276,11 @@ const Navigation = () => {
                   boxShadow=" 1px 1px 20px 5px #c5c5c5"
                   bg="#e8e8e8"
                   p="10"
-                  width="23%"
+                  width="30%"
                   borderRadius="10px"
                 >
                   <Text display="flex" mb={2} textTransform="uppercase">
-                    Total user:
+                    Total users:
                     <Text ml={2} textTransform="uppercase" fontWeight="bold">
                       {allUser ? allUser.length : "N/A"}
                     </Text>
@@ -280,7 +291,7 @@ const Navigation = () => {
                   boxShadow=" 1px 1px 20px 5px #c5c5c5"
                   bg="#e8e8e8"
                   p="10"
-                  width="23%"
+                  width="30%"
                   borderRadius="10px"
                 >
                   <Text display="flex" mb={2} textTransform="uppercase">
@@ -295,7 +306,7 @@ const Navigation = () => {
                   boxShadow=" 1px 1px 20px 5px #c5c5c5"
                   bg="#e8e8e8"
                   p="10"
-                  width="23%"
+                  width="30%"
                   borderRadius="10px"
                 >
                   <Text display="flex" mb={2} textTransform="uppercase">
@@ -305,12 +316,41 @@ const Navigation = () => {
                     </Text>
                   </Text>
                 </Box>
-
+              </Box>
+              <Box display="flex" justifyContent="space-between">
                 <Box
                   boxShadow=" 1px 1px 20px 5px #c5c5c5"
                   bg="#e8e8e8"
                   p="10"
-                  width="23%"
+                  width="30%"
+                  borderRadius="10px"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Users online:
+                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                      {allOnline ? allOnline : <></>}
+                    </Text>
+                  </Text>
+                </Box>
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="30%"
+                  borderRadius="10px"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Top chat:
+                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                      {topChat ? topChat : <></>}
+                    </Text>
+                  </Text>
+                </Box>
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="30%"
                   borderRadius="10px"
                 >
                   <Text display="flex" mb={2} textTransform="uppercase">
@@ -321,22 +361,6 @@ const Navigation = () => {
                       ) : (
                         <></>
                       )}
-                    </Text>
-                  </Text>
-                </Box>
-              </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="23%"
-                  borderRadius="10px"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Users online:
-                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                      {allOnline ? allOnline : <></>}
                     </Text>
                   </Text>
                 </Box>

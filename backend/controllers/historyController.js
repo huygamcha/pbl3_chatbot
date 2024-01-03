@@ -24,7 +24,9 @@ const getAllChat = asyncHandler(async (req, res) => {
         },
       },
     },
-    { $sort: { "usersData.totalQuestions": -1 } },
+    {
+      $sort: { "usersData.totalQuestions": 1 },
+    },
   ]).exec();
 
   if (allChat) {
