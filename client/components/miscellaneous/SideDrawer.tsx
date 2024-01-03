@@ -2,7 +2,9 @@ import { Button } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
-import React, { useEffect } from "react";
+import React from "react";
+import io from "socket.io-client";
+var socket;
 import {
   Menu,
   MenuButton,
@@ -25,8 +27,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/toast";
 import { Spinner } from "@chakra-ui/spinner";
-import { ChatState } from "../../Context/ChatProvider";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import ProfileModal from "./ ProfileModal";
 import ChatLoading from "../userAvatar/ChatLoading";
 import UserListItem from "../userAvatar/UserListItem";
@@ -49,8 +50,12 @@ function SideDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("userInfo")!);
+  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
 
   const logoutHandler = async () => {
+    socket = io(ENDPOINT);
+    socket.emit("logout", user);
+
     localStorage.removeItem("userInfo");
     localStorage.removeItem("chat");
 

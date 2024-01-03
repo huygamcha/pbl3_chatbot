@@ -60,7 +60,7 @@ function Login() {
         position: "bottom",
       });
       const user = data.message;
-      socket.emit("login", { user });
+      if (user) socket.emit("login", user);
       localStorage.setItem("userInfo", JSON.stringify(data.message));
       history.push("/chats");
     } catch (error) {

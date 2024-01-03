@@ -1,5 +1,5 @@
-import { AddIcon, CheckIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Box, Stack, Text } from "@chakra-ui/layout";
+import { CheckIcon } from "@chakra-ui/icons";
+import { Box, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -8,22 +8,17 @@ import io from "socket.io-client";
 
 import {
   Avatar,
-  Button,
   Table,
   TableCaption,
   TableContainer,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
-  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { ChatState } from "../../Context/ChatProvider";
-import { clsx } from "clsx";
-import ConfirmDialog from "../ConfirmDialog";
 import IsolatedModal from "../ConfirmDialog";
 import ProfileModal from "../miscellaneous/ ProfileModal";
 // import { styles } from "";
@@ -77,7 +72,26 @@ const Navigation = () => {
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.on("allLogins", (data) => {
-      console.log("««««« allLogins »»»»»", data);
+      toast({
+        title: `Account ${data} just accessed`,
+        status: "info",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+      return;
+
+      // console.log("««««« allLogins »»»»»", data);
+    });
+    socket.on("logout user", (data) => {
+      toast({
+        title: `Account ${data} just logged out`,
+        status: "info",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+      return;
     });
   }, []);
 
