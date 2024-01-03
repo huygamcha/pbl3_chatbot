@@ -100,6 +100,7 @@ const MyChats = () => {
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
+      // display={{ base: "none", md: "flex" }}
       flexDir="column"
       alignItems="center"
       p={3}

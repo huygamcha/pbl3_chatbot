@@ -33,6 +33,12 @@ function Chatbox() {
     }
   };
 
+  const backHistory = () => {
+    setSelectedChat(undefined);
+    // localStorage.clear("chat");
+    localStorage.removeItem("chat");
+  };
+
   const handleSubmit = async () => {
     setDisplayText(question);
     setStoreQuestion(question);
@@ -192,8 +198,8 @@ function Chatbox() {
 
   return (
     <Box
+      display={{ base: selectedChat ? "flex" : "none", md: "flex" }}
       width={{ base: "100%", md: "80%" }}
-      display="flex"
       flexDir="column"
       h="100%"
     >
@@ -289,6 +295,13 @@ function Chatbox() {
           onClick={handleSubmit}
         >
           Send
+        </Button>{" "}
+        <Button
+          width={{ base: "20%", md: "10%" }}
+          colorScheme="blue"
+          onClick={backHistory}
+        >
+          History
         </Button>
       </Box>
     </Box>

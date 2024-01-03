@@ -291,8 +291,10 @@ const ProfileModal = ({ user, children }) => {
                   <FormLabel>New password</FormLabel>
                   <InputGroup className="box-error-profile">
                     <Input
-                      p={2}
-                      pr="4.5rem"
+                      // padding={{ base: "8px", md: "8px" }}
+                      padding="8px"
+                      // p={2}
+                      // pr="4.5rem"
                       type={show ? "text" : "password"}
                       placeholder="Enter password"
                       onChange={(e) => setPassword(e.target.value)}
@@ -318,8 +320,9 @@ const ProfileModal = ({ user, children }) => {
                   <FormLabel>Confirm password</FormLabel>
                   <InputGroup>
                     <Input
-                      p={2}
-                      pr="4.5rem"
+                      // padding={{ base: "8px", md: "8px" }}
+                      padding="8px"
+                      // pr="4.5rem"
                       type={showConfirm ? "text" : "password"}
                       placeholder="Confirm password"
                       onChange={(e) => setConfirmPassword(e.target.value)}
