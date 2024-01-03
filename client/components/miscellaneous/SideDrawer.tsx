@@ -57,6 +57,7 @@ function SideDrawer() {
     socket.emit("logout", user);
 
     localStorage.removeItem("userInfo");
+    // loại bỏ đoạn chat cũ
     localStorage.removeItem("chat");
 
     try {
@@ -69,6 +70,7 @@ function SideDrawer() {
         `https://pbl3-chatbot.onrender.com/api/user?id=${user._id}`,
         {
           isOnline: false,
+          dateOnline: new Date(),
         }
       );
     } catch (error) {

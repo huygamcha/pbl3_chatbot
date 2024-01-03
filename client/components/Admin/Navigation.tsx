@@ -80,8 +80,6 @@ const Navigation = () => {
         position: "top",
       });
 
-      window.location.reload();
-
       // console.log("««««« allLogins »»»»»", data);
     });
     socket.on("logout user", (data) => {
@@ -92,7 +90,6 @@ const Navigation = () => {
         isClosable: true,
         position: "top",
       });
-      window.location.reload();
     });
   }, []);
 

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { type } = require("express/lib/response");
 
 const userSchema = mongoose.Schema(
   {
@@ -24,6 +25,9 @@ const userSchema = mongoose.Schema(
     isOnline: {
       type: Boolean,
       default: false,
+    },
+    dateOnline: {
+      type: Date,
     },
     passwordResetToken: { type: String },
     passwordResetExpires: { type: Date },
