@@ -49,9 +49,19 @@ const io = require("socket.io")(server, {
   },
 });
 
+const connectedUsers = {};
+
 io.on("connection", (socket) => {
-  console.log("Connected to socket.io");
-  socket.on("init", (user) => {
-    socket.emit("log name user", user.name);
+  console.log("Client connected:", socket.id);
+
+  socket.on("login", (data) => {
+    connectedUsers[socket.id] = data;
+    io.emit("allLogins", Object.values(connectedUsers));
+  });
+
+  socket.on("disconnect", () => {
+    delete connectedUsers[socket.id];
+    io.emit("allLogins", Object.values(connectedUsers));
+    console.log("Client disconnected:", socket.id);
   });
 });

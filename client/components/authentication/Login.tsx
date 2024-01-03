@@ -13,9 +13,12 @@ import * as Yup from "yup";
 import "./LogIn.css";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
+import io from "socket.io-client";
 import { IoMdStar } from "react-icons/io";
-
+var socket;
 function Login() {
+  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
+  const socket = io(ENDPOINT);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [show, setShow] = useState(false);
@@ -54,6 +57,8 @@ function Login() {
         isClosable: true,
         position: "bottom",
       });
+      const user = data.message;
+      socket.emit("login", { user });
       localStorage.setItem("userInfo", JSON.stringify(data.message));
       history.push("/chats");
     } catch (error) {
