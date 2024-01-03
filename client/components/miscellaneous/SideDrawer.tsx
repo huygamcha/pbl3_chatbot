@@ -150,11 +150,6 @@ function SideDrawer() {
         )}
         <div>
           <Menu>
-            <MenuButton p={1}>
-              <BellIcon fontSize="2xl" m={1} />
-            </MenuButton>
-          </Menu>
-          <Menu>
             <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
               <Avatar
                 size="sm"

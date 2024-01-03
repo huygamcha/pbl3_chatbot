@@ -304,7 +304,7 @@ const Navigation = () => {
                     <Th textAlign="center">status</Th>
                     <Th textAlign="center">admin</Th>
                     <Th textAlign="center">avatar</Th>
-                    <Th>action</Th>
+                    <Th textAlign="center">action</Th>
                   </Tr>
                 </Thead>
                 <Tbody>

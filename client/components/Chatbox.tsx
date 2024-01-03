@@ -35,6 +35,12 @@ function Chatbox() {
     setQuestion(e.target.value);
   };
 
+  const handleEnter = (e) => {
+    if (e.key == "Enter") {
+      handleSubmit();
+    }
+  };
+
   const handleSubmit = async () => {
     setDisplayText(question);
     setStoreQuestion(question);
@@ -278,6 +284,7 @@ function Chatbox() {
           width="89%"
           value={question}
           onChange={handleTyping}
+          onKeyDown={handleEnter}
         />
         <Button width="10%" colorScheme="blue" onClick={handleSubmit}>
           Send
