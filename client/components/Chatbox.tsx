@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import io from "socket.io-client";
 import { Box, Text } from "@chakra-ui/layout";
 import { Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
@@ -9,8 +8,6 @@ import { ChatState } from "../Context/ChatProvider";
 import axios from "axios";
 import GetAnswer from "./GetAnswer";
 import { useToast } from "@chakra-ui/react";
-
-var socket;
 
 function Chatbox() {
   const ENDPOINT = "https://pbl3-chatbot.onrender.com";
@@ -26,14 +23,6 @@ function Chatbox() {
 
   // const [height, setHeight] = useState();
   const { selectedChat, setSelectedChat, setNewChat } = ChatState();
-
-  useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit("init", user);
-    socket.on("log name user", (data) => {
-      console.log("««««« data »»»»»", data);
-    });
-  }, []);
 
   const handleTyping = (e) => {
     setQuestion(e.target.value);

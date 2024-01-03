@@ -4,6 +4,7 @@ import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TbEdit } from "react-icons/tb";
+import io from "socket.io-client";
 
 import {
   Avatar,
@@ -26,6 +27,8 @@ import ConfirmDialog from "../ConfirmDialog";
 import IsolatedModal from "../ConfirmDialog";
 import ProfileModal from "../miscellaneous/ ProfileModal";
 // import { styles } from "";
+var socket;
+
 const Navigation = () => {
   const { selectedChat, setSelectedChat, newChat, setChatId, setNewChat } =
     ChatState();
@@ -68,6 +71,15 @@ const Navigation = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const toast = useToast();
+
+  //socket
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("init", user);
+    socket.on("log name user", (data) => {
+      console.log("««««« data »»»»»", data);
+    });
+  }, []);
 
   useEffect(() => {
     const getAllUser = async () => {
