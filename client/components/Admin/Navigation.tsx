@@ -51,6 +51,7 @@ const Navigation = () => {
     isAdmin: boolean;
     pic: string;
     isOnline: boolean;
+    dateOnline: Date;
   }
 
   interface allNewUser {
@@ -359,11 +360,19 @@ const Navigation = () => {
                             borderRadius="50%"
                             color="red"
                           ></CheckIcon>
+                          // <>
+                          //   {user.dateOnline ? (
+                          //     new Date(user.dateOnline)
+                          //     <>234</>
+                          //   ) : (
+                          //     <>123</>
+                          //   )}
+                          // </>
                         )}
                       </Td>
 
                       <Td textAlign="center">
-                        {user.isAdmin ? (
+                        {user?.isAdmin ? (
                           <CheckIcon
                             bg="teal"
                             p={1}

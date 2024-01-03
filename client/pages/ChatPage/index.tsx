@@ -19,7 +19,7 @@ function ChatPage() {
         h="91.5vh"
         p="10px"
       >
-        {user.isAdmin ? (
+        {user?.isAdmin ? (
           <Navigation></Navigation>
         ) : (
           <>

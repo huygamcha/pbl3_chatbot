@@ -191,7 +191,12 @@ function Chatbox() {
   // console.log("««««« selectedChat123 »»»»»", selectedChat);
 
   return (
-    <Box width="80%" display="flex" flexDir="column" h="100%">
+    <Box
+      width={{ base: "100%", md: "80%" }}
+      display="flex"
+      flexDir="column"
+      h="100%"
+    >
       <Box
         overflowY="auto"
         alignItems="center"
@@ -271,14 +276,18 @@ function Chatbox() {
           border="1px solid blue"
           mb={1.5}
           mr={2}
+          width={{ base: "89%", md: "100%" }}
           textColor="black"
           placeholder="Type the question"
-          width="89%"
           value={question}
           onChange={handleTyping}
           onKeyDown={handleEnter}
         />
-        <Button width="10%" colorScheme="blue" onClick={handleSubmit}>
+        <Button
+          width={{ base: "20%", md: "10%" }}
+          colorScheme="blue"
+          onClick={handleSubmit}
+        >
           Send
         </Button>
       </Box>

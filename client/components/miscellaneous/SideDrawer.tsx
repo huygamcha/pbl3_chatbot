@@ -129,7 +129,7 @@ function SideDrawer() {
         p="5px 10px 5px 10px"
         borderWidth="5px"
       >
-        {user.isAdmin ? (
+        {user?.isAdmin ? (
           <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
             <Button variant="ghost" onClick={onOpen}>
               <i className="fas fa-search"></i>

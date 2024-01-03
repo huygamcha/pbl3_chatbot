@@ -53,7 +53,7 @@ const ProfileModal = ({ user, children }) => {
 
   useEffect(() => {
     setAdmin(false);
-    if (user.isAdmin) {
+    if (user?.isAdmin) {
       setAdmin(true);
     }
     setPassword("");
@@ -85,7 +85,7 @@ const ProfileModal = ({ user, children }) => {
           // Authorization: `Bearer ${user.token}`,
         },
       };
-      if (!userAdmin.isAdmin) {
+      if (!userAdmin?.isAdmin) {
         const { data } = await axios.patch(
           `https://pbl3-chatbot.onrender.com/api/user?id=${user._id}`,
           {
@@ -220,7 +220,7 @@ const ProfileModal = ({ user, children }) => {
       <Modal size="xl" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
 
-        <ModalContent h="80%">
+        <ModalContent height={{ base: "100%", md: "80%" }}>
           <ModalHeader
             display="flex"
             justifyContent="space-between"
@@ -252,7 +252,7 @@ const ProfileModal = ({ user, children }) => {
                     }}
                   />
                 </FormControl>
-                {userAdmin.isAdmin ? (
+                {userAdmin?.isAdmin ? (
                   <Box mt={4} fontWeight="bold">
                     <Checkbox
                       // hiển thị khi là admin
