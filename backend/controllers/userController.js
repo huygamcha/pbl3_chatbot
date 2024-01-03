@@ -117,6 +117,7 @@ const searchUsers = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
+  console.log("««««« req.body.dateOnline »»»»»", req.body.dateOnline);
   const updateUser = await User.findOne({
     name: req.body.name,
     _id: { $ne: req.query.id },
