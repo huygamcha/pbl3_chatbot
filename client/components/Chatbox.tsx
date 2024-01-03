@@ -33,12 +33,6 @@ function Chatbox() {
     }
   };
 
-  const backHistory = () => {
-    setSelectedChat(undefined);
-    // localStorage.clear("chat");
-    localStorage.removeItem("chat");
-  };
-
   const handleSubmit = async () => {
     setDisplayText(question);
     setStoreQuestion(question);
@@ -296,13 +290,6 @@ function Chatbox() {
         >
           Send
         </Button>{" "}
-        <Button
-          width={{ base: "20%", md: "10%" }}
-          colorScheme="blue"
-          onClick={backHistory}
-        >
-          History
-        </Button>
       </Box>
     </Box>
   );

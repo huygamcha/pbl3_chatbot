@@ -140,6 +140,7 @@ const MyChats = () => {
                   key={index}
                   onClick={() => handleClick(chat)}
                   cursor="pointer"
+                  // _hover={{ backgroundColor: "#F8F8F8" }}
                   bg={
                     selectedChat?._id == chat?._id ||
                     selectedChatHistory?._id == chat?._id

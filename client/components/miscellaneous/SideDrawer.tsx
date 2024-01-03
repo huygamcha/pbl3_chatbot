@@ -4,6 +4,8 @@ import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
 import React from "react";
 import io from "socket.io-client";
+import { FaHistory } from "react-icons/fa";
+
 var socket;
 import {
   Menu,
@@ -32,6 +34,7 @@ import ProfileModal from "./ ProfileModal";
 import ChatLoading from "../userAvatar/ChatLoading";
 import UserListItem from "../userAvatar/UserListItem";
 import Dashboard from "../Admin/Dashboard";
+import { ChatState } from "../../Context/ChatProvider";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -51,6 +54,13 @@ function SideDrawer() {
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("userInfo")!);
   const ENDPOINT = "https://pbl3-chatbot.onrender.com";
+  const { selectedChat, setSelectedChat, setNewChat } = ChatState();
+
+  const backHistory = () => {
+    setSelectedChat(undefined);
+    // localStorage.clear("chat");
+    localStorage.removeItem("chat");
+  };
 
   const logoutHandler = async () => {
     socket = io(ENDPOINT);
@@ -128,7 +138,20 @@ function SideDrawer() {
         w="100%"
         p="5px 10px 5px 10px"
         borderWidth="5px"
+        position="relative"
       >
+        <Box
+          display={{ base: "block", md: "none" }}
+          width={{ base: "20%", md: "10%" }}
+          color="black"
+          onClick={backHistory}
+          position="absolute"
+          top="50%"
+          left="5%"
+          transform="translateY(-50%)"
+        >
+          <FaHistory></FaHistory>
+        </Box>
         {user?.isAdmin ? (
           <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
             <Button variant="ghost" onClick={onOpen}>

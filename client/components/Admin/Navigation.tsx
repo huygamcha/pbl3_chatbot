@@ -63,6 +63,7 @@ const Navigation = () => {
   const [allNewUser, setAllNewUser] = useState<allNewUser | undefined>();
   const [value, setValue] = useState<Chat[]>([]);
   const [allChats, setAllChats] = useState<number>(0);
+  const [allOnline, setAllOnline] = useState<number>(0);
 
   const [selectedUserId, setSelectedUserId] = useState(null);
 
@@ -154,6 +155,14 @@ const Navigation = () => {
     });
   }, [allChat]);
 
+  useEffect(() => {
+    allUser?.map((value) => {
+      if (value.isOnline) {
+        setAllOnline((prev) => 1 + prev);
+      }
+    });
+  }, [allUser]);
+
   console.log("«« ««« response »»»»»", allUser);
   console.log("««««« allChat »»»»»", allChat ? allChat : "N/A");
 
@@ -161,6 +170,7 @@ const Navigation = () => {
   console.log("««««« adminSelected »»»»»", adminSelected);
   console.log("««««« allChats »»»»»", allChats);
   console.log("««««« allNewUser »»»»»", allNewUser?.data, allNewUser?.total);
+  console.log("««««« allOnline »»»»»", allOnline);
   return (
     <>
       <Box
@@ -274,12 +284,13 @@ const Navigation = () => {
                   borderRadius="10px"
                 >
                   <Text display="flex" mb={2} textTransform="uppercase">
-                    New user today:
+                    New users today:
                     <Text ml={2} textTransform="uppercase" fontWeight="bold">
                       {allNewUser ? allNewUser?.total : <></>}
                     </Text>
                   </Text>
                 </Box>
+
                 <Box
                   boxShadow=" 1px 1px 20px 5px #c5c5c5"
                   bg="#e8e8e8"
@@ -288,7 +299,7 @@ const Navigation = () => {
                   borderRadius="10px"
                 >
                   <Text display="flex" mb={2} textTransform="uppercase">
-                    Total chat:
+                    Total chats:
                     <Text ml={2} textTransform="uppercase" fontWeight="bold">
                       {allChats ? allChats : <></>}
                     </Text>
@@ -310,6 +321,22 @@ const Navigation = () => {
                       ) : (
                         <></>
                       )}
+                    </Text>
+                  </Text>
+                </Box>
+              </Box>
+              <Box display="flex" justifyContent="space-between">
+                <Box
+                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                  bg="#e8e8e8"
+                  p="10"
+                  width="23%"
+                  borderRadius="10px"
+                >
+                  <Text display="flex" mb={2} textTransform="uppercase">
+                    Users online:
+                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                      {allOnline ? allOnline : <></>}
                     </Text>
                   </Text>
                 </Box>
