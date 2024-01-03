@@ -49,7 +49,7 @@ const io = require("socket.io")(server, {
   },
 });
 
-const connectedUsers = {};
+let connectedUsers = {};
 
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);

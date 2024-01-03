@@ -75,7 +75,7 @@ const Navigation = () => {
 
   //socket
   useEffect(() => {
-    // socket = io(ENDPOINT);
+    socket = io(ENDPOINT);
     socket.on("allLogins", (data) => {
       console.log("««««« allLogins »»»»»", data);
     });

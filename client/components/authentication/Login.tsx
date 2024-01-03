@@ -15,7 +15,9 @@ import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import io from "socket.io-client";
 import { IoMdStar } from "react-icons/io";
+
 var socket;
+
 function Login() {
   const ENDPOINT = "https://pbl3-chatbot.onrender.com";
   const socket = io(ENDPOINT);
