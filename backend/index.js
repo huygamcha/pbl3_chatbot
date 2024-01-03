@@ -52,8 +52,6 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
   socket.on("init", (user) => {
-    console.log("««««« user »»»»»", user);
+    socket.emit("log name user", user.name);
   });
-
-  socket.emit("log name user", user.name);
 });
