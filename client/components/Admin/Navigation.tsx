@@ -248,7 +248,7 @@ const Navigation = () => {
       </Box>
 
       {/* screen */}
-      <Box width="80%" display="flex" flexDir="column" h="100%">
+      <Box width="60%" display="flex" flexDir="column" h="100%">
         <Box
           overflowY="auto"
           alignItems="center"
