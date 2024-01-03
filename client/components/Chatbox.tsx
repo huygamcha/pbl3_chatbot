@@ -29,6 +29,7 @@ function Chatbox() {
 
   useEffect(() => {
     socket = io(ENDPOINT);
+    socket.emit("connection", user);
   }, []);
 
   const handleTyping = (e) => {

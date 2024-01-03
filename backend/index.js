@@ -48,6 +48,7 @@ const io = require("socket.io")(server, {
     // credentials: true,
   },
 });
+
 io.on("connection", (socket) => {
   console.log("Connected to socket.io", socket);
 });
