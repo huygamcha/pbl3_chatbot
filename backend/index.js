@@ -52,7 +52,7 @@ const io = require("socket.io")(server, {
 let connectedUsers = {};
 
 io.on("connection", (socket) => {
-  console.log("Client connected:", socket.id);
+  console.log("Client connect:", socket.id);
 
   socket.on("login", (data) => {
     io.emit("allLogins", data.name);
