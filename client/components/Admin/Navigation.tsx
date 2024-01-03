@@ -71,6 +71,7 @@ const Navigation = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const toast = useToast();
+  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
 
   //socket
   useEffect(() => {

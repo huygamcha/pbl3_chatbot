@@ -10,7 +10,6 @@ import GetAnswer from "./GetAnswer";
 import { useToast } from "@chakra-ui/react";
 
 function Chatbox() {
-  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
   const [question, setQuestion] = useState("");
   const [displayText, setDisplayText] = useState("");
   const [listQuestion, setListQuestion] = useState<Array<String>[]>([[]]);
