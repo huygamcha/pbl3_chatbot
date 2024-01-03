@@ -79,7 +79,8 @@ const Navigation = () => {
         isClosable: true,
         position: "top",
       });
-      return;
+
+      window.location.reload();
 
       // console.log("««««« allLogins »»»»»", data);
     });
@@ -91,7 +92,7 @@ const Navigation = () => {
         isClosable: true,
         position: "top",
       });
-      return;
+      window.location.reload();
     });
   }, []);
 
