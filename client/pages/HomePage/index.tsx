@@ -17,19 +17,6 @@ import SignupForm from "../../components/authentication/SingUp";
 function HomePage() {
   return (
     <Container maxW="xl" centerContent>
-      {/* <Box
-        bg="white"
-        display="block"
-        justifyContent="center"
-        p={3}
-        width="100%"
-        borderRadius="10px"
-        margin="10px 0px 0px"
-      >
-        <Text fontSize="30px" textAlign="center">
-          Home
-        </Text>
-      </Box> */}
       <Box
         bg="white"
         display="block"

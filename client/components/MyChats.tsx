@@ -11,6 +11,7 @@ import "./MyChats.css";
 import { MdOutlineDelete } from "react-icons/md";
 import IsolatedModal from "./ConfirmDialog";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { all } from "express/lib/application";
 
 // import { styles } from "";
 const MyChats = () => {
@@ -54,6 +55,7 @@ const MyChats = () => {
         const response = await axios.get(apiUrl, config);
         const allHistory = response.data;
         allHistory.unshift({ question: ["New chat", "new chat"], _id: "123" });
+
         setValue(allHistory);
         // Xử lý dữ liệu ở đây
       } catch (error) {
@@ -77,10 +79,14 @@ const MyChats = () => {
       try {
         const response = await axios.get(apiUrl, config);
         const allHistory = response.data;
+
         allHistory.unshift({ question: ["New chat", "new chat"], _id: "123" });
+
         setValue(allHistory);
         // Xử lý dữ liệu ở đây
       } catch (error) {
+        setValue([{ question: ["New chat", "new chat"], _id: "123" }]);
+
         console.error("Error fetching history:", error.message);
       }
     };
@@ -96,7 +102,8 @@ const MyChats = () => {
     }
   }, []);
 
-  console.log("«««««selectedChat  »»»»»", selectedChat);
+  console.log("««««« selectedChat  »»»»»", selectedChat);
+  console.log("««««« value »»»»»", value);
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}

@@ -190,7 +190,7 @@ const Navigation = () => {
         alignItems="center"
         p={3}
         bg="white"
-        w={{ base: "100%", md: "19.5%" }}
+        w={{ base: "40%", md: "19.5%" }}
         h="100%"
         borderRadius="lg"
         borderWidth="1px"
@@ -203,6 +203,7 @@ const Navigation = () => {
           w="100%"
           justifyContent="space-between"
           alignItems="center"
+          fontWeight="bold"
         >
           Overview
         </Box>
@@ -262,205 +263,218 @@ const Navigation = () => {
           {adminSelected == "dashboard" ? (
             <Box display="flex" flexDirection="column">
               <Box
-                my={5}
-                w="20%"
+                w="100%"
                 p={4}
                 borderRadius="10px"
-                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                bg="#e8e8e8"
+                bg="#67c2bc"
+                fontWeight="bold"
+                textAlign="center"
               >
                 Data
               </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Total users:
-                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                      {allUser ? allUser.length : "N/A"}
-                    </Text>
+              <Box
+                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                bg="#e8e8e8"
+                p="4"
+                mt="3"
+                width="100%"
+                borderRadius="10px"
+                background="#b2f5ea"
+              >
+                <Text display="flex" mb={2} textTransform="uppercase">
+                  Total users:
+                  <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                    {allUser ? allUser.length : "N/A"}
                   </Text>
-                </Box>
-
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    New users today:
-                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                      {allNewUser ? allNewUser?.total : <></>}
-                    </Text>
-                  </Text>
-                </Box>
-
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Total chats:
-                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                      {allChats ? allChats : <></>}
-                    </Text>
-                  </Text>
-                </Box>
+                </Text>
               </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Users online:
-                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                      {allOnline ? allOnline : <></>}
-                    </Text>
+
+              <Box
+                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                bg="#e8e8e8"
+                p="4"
+                mt="3"
+                width="100%"
+                borderRadius="10px"
+                background="#b2f5ea"
+              >
+                <Text display="flex" mb={2} textTransform="uppercase">
+                  New users today:
+                  <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                    {allNewUser ? allNewUser?.total : <></>}
                   </Text>
-                </Box>
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Top chat:
-                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                      {topChat ? topChat : <></>}
-                    </Text>
+                </Text>
+              </Box>
+
+              <Box
+                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                bg="#e8e8e8"
+                p="4"
+                mt="3"
+                width="100%"
+                borderRadius="10px"
+                background="#b2f5ea"
+              >
+                <Text display="flex" mb={2} textTransform="uppercase">
+                  Total chats:
+                  <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                    {allChats ? allChats : <></>}
                   </Text>
-                </Box>
-                <Box
-                  boxShadow=" 1px 1px 20px 5px #c5c5c5"
-                  bg="#e8e8e8"
-                  p="10"
-                  width="30%"
-                  borderRadius="10px"
-                >
-                  <Text display="flex" mb={2} textTransform="uppercase">
-                    Chat / user:
-                    <Text ml={2} textTransform="uppercase" fontWeight="bold">
-                      {allChats && allUser ? (
-                        (allChats / allUser.length).toFixed(2)
-                      ) : (
-                        <></>
-                      )}
-                    </Text>
+                </Text>
+              </Box>
+              <Box
+                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                bg="#e8e8e8"
+                p="4"
+                mt="3"
+                width="100%"
+                borderRadius="10px"
+                background="#b2f5ea"
+              >
+                <Text display="flex" mb={2} textTransform="uppercase">
+                  Users online:
+                  <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                    {allOnline ? allOnline : <></>}
                   </Text>
-                </Box>
+                </Text>
+              </Box>
+              <Box
+                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                bg="#e8e8e8"
+                p="4"
+                mt="3"
+                width="100%"
+                borderRadius="10px"
+                background="#b2f5ea"
+              >
+                <Text display="flex" mb={2} textTransform="uppercase">
+                  Top chat:
+                  <Text
+                    overflow="hidden"
+                    textTransform="uppercase"
+                    fontWeight="bold"
+                  >
+                    {topChat ? topChat : <></>}
+                  </Text>
+                </Text>
+              </Box>
+              <Box
+                // boxShadow=" 1px 1px 20px 5px #c5c5c5"
+                bg="#e8e8e8"
+                p="4"
+                mt="3"
+                width="100%"
+                borderRadius="10px"
+                background="#b2f5ea"
+              >
+                <Text display="flex" mb={2} textTransform="uppercase">
+                  Chat / user:
+                  <Text ml={2} textTransform="uppercase" fontWeight="bold">
+                    {allChats && allUser ? (
+                      (allChats / allUser.length).toFixed(2)
+                    ) : (
+                      <></>
+                    )}
+                  </Text>
+                </Text>
               </Box>
             </Box>
           ) : allUser ? (
-            <TableContainer>
-              <Table variant="striped" colorScheme="teal">
-                <TableCaption>
-                  {/* Imperial to metric conversion factors */}
-                </TableCaption>
-                <Thead>
-                  <Tr>
-                    <Th>STT</Th>
-                    <Th>Name</Th>
-                    <Th>email</Th>
-                    <Th textAlign="center">status</Th>
-                    <Th textAlign="center">admin</Th>
-                    <Th textAlign="center">avatar</Th>
-                    <Th textAlign="center">action</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {allUser.map((user, idx) => (
+            <Box>
+              <TableContainer w="100%">
+                <Table variant="striped" colorScheme="teal">
+                  <TableCaption>
+                    {/* Imperial to metric conversion factors */}
+                  </TableCaption>
+                  <Thead>
                     <Tr>
-                      <Td
-                        borderTopLeftRadius="10px"
-                        borderBottomLeftRadius="10px"
-                      >
-                        {idx + 1}
-                      </Td>
-                      <Td>{user.name}</Td>
-                      <Td>{user.email}</Td>
-                      <Td textAlign="center">
-                        {user.isOnline ? (
-                          <CheckIcon
-                            bg="#309a49"
-                            p={0}
-                            fontSize="15px"
-                            borderRadius="50%"
-                            color="#309a49"
-                          ></CheckIcon>
-                        ) : (
-                          <CheckIcon
-                            bg="red"
-                            p={0}
-                            fontSize="15px"
-                            borderRadius="50%"
-                            color="red"
-                          ></CheckIcon>
-                          // <>
-                          //   {user.dateOnline ? (
-                          //     new Date(user.dateOnline)
-                          //     <>234</>
-                          //   ) : (
-                          //     <>123</>
-                          //   )}
-                          // </>
-                        )}
-                      </Td>
-
-                      <Td textAlign="center">
-                        {user?.isAdmin ? (
-                          <CheckIcon
-                            bg="teal"
-                            p={1}
-                            fontSize="30px"
-                            borderRadius="50%"
-                            color="white"
-                          ></CheckIcon>
-                        ) : (
-                          ""
-                        )}
-                      </Td>
-
-                      <Td textAlign="center">
-                        <Avatar
-                          size="sm"
-                          cursor="pointer"
-                          name={user.name}
-                          src={user.pic}
-                        ></Avatar>
-                      </Td>
-                      <Td
-                        borderTopRightRadius="10px"
-                        borderBottomRightRadius="10px"
-                      >
-                        <Box alignItems="center" display="flex" fontSize="28px">
-                          {/* edit */}
-                          <ProfileModal user={user}>
-                            <TbEdit cursor="pointer" color="#f2951d" />
-                          </ProfileModal>
-                          <IsolatedModal key={idx} user={user}></IsolatedModal>
-                        </Box>
-                      </Td>
+                      <Th>STT</Th>
+                      <Th>Name</Th>
+                      <Th>email</Th>
+                      <Th textAlign="center">status</Th>
+                      <Th textAlign="center">admin</Th>
+                      <Th textAlign="center">avatar</Th>
+                      <Th textAlign="center">action</Th>
                     </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
+                  </Thead>
+                  <Tbody>
+                    {allUser.map((user, idx) => (
+                      <Tr>
+                        <Td
+                          borderTopLeftRadius="10px"
+                          borderBottomLeftRadius="10px"
+                        >
+                          {idx + 1}
+                        </Td>
+                        <Td>{user.name}</Td>
+                        <Td>{user.email}</Td>
+                        <Td textAlign="center">
+                          {user.isOnline ? (
+                            <CheckIcon
+                              bg="#309a49"
+                              p={0}
+                              fontSize="15px"
+                              borderRadius="50%"
+                              color="#309a49"
+                            ></CheckIcon>
+                          ) : (
+                            <CheckIcon
+                              bg="red"
+                              p={0}
+                              fontSize="15px"
+                              borderRadius="50%"
+                              color="red"
+                            ></CheckIcon>
+                          )}
+                        </Td>
+
+                        <Td textAlign="center">
+                          {user?.isAdmin ? (
+                            <CheckIcon
+                              bg="teal"
+                              p={1}
+                              fontSize="30px"
+                              borderRadius="50%"
+                              color="white"
+                            ></CheckIcon>
+                          ) : (
+                            ""
+                          )}
+                        </Td>
+
+                        <Td textAlign="center">
+                          <Avatar
+                            size="sm"
+                            cursor="pointer"
+                            name={user.name}
+                            src={user.pic}
+                          ></Avatar>
+                        </Td>
+                        <Td
+                          borderTopRightRadius="10px"
+                          borderBottomRightRadius="10px"
+                        >
+                          <Box
+                            alignItems="center"
+                            display="flex"
+                            fontSize="28px"
+                          >
+                            {/* edit */}
+                            <ProfileModal user={user}>
+                              <TbEdit cursor="pointer" color="#f2951d" />
+                            </ProfileModal>
+                            <IsolatedModal
+                              key={idx}
+                              user={user}
+                            ></IsolatedModal>
+                          </Box>
+                        </Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </Box>
           ) : (
             "N/A"
           )}

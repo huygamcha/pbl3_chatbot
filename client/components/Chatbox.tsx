@@ -218,16 +218,16 @@ function Chatbox() {
                       bg="#dadada"
                       p={3}
                       borderRadius="lg"
-                      m={10}
+                      m={2}
                     >
                       {value[0]}
                     </Text>
                     <Text
                       ref={(ref) => (textRef.current = ref)}
-                      bg="#dadada"
+                      bg="#b2f5ea"
                       p={3}
                       borderRadius="lg"
-                      m={10}
+                      m={2}
                     >
                       {value[1]}
                     </Text>
@@ -241,17 +241,17 @@ function Chatbox() {
                       bg="#dadada"
                       p={3}
                       borderRadius="lg"
-                      m={10}
+                      m={2}
                     >
                       {value[0]}
                     </Text>
                     <Text
                       color="black"
                       ref={(ref) => (textRef.current = ref)}
-                      bg="#dadada"
+                      bg="#b2f5ea"
                       p={3}
                       borderRadius="lg"
-                      m={10}
+                      m={2}
                     >
                       Please waiting for answer
                     </Text>
