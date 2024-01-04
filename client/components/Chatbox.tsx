@@ -256,9 +256,9 @@ function Chatbox() {
                       m={2}
                       mr="20%"
                     >
-                      {vietnameseRegex.test(question)
+                      {!vietnameseRegex.test(question)
                         ? "Please waiting for answer"
-                        : "vui lòng đợi "}
+                        : "Vui lòng đợi câu trả lời "}
                     </Text>
                   </>
                 );
