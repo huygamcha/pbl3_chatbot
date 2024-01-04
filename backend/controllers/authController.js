@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 async function forgotPassword(req, res) {
   // Find the user by email
   const user = await User.findOne({ email: req.body.email });
-
+  console.log("««««« req.body.email  »»»»»", req.body.email);
   if (!user) {
     return res.send(404, {
       message: "Email not found",
