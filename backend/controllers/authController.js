@@ -38,7 +38,7 @@ async function forgotPassword(req, res) {
     subject: "Password Reset Request",
     html: `
        <p>You requested a password reset. Click the link below to reset your password:</p>
-       <a href="${resetUrl}">${resetUrl}</a>
+       <a href="${resetUrl}">Change password</a>
      `,
   };
 
