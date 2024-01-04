@@ -146,7 +146,7 @@ function Signup() {
           name: Yup.string()
             .required("Name is required")
             .matches(
-              /^[a-zA-Z\s]*$/,
+              /^[\p{L}\s]*$/u,
               "Name must only contain letters and spaces"
             )
             .min(2, "Name must be at least 2 characters")
