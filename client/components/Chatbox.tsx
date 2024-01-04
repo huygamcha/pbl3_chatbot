@@ -32,12 +32,11 @@ function Chatbox() {
       handleSubmit();
     }
   };
-
+  const vietnameseRegex =
+    /[àáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳỹỷỵ]/iu;
   const handleSubmit = async () => {
     setDisplayText(question);
     setStoreQuestion(question);
-    const vietnameseRegex =
-      /[àáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳỹỷỵ]/iu;
 
     try {
       let api = "";
@@ -257,7 +256,9 @@ function Chatbox() {
                       m={2}
                       mr="20%"
                     >
-                      Please waiting for answer
+                      {vietnameseRegex.test(question)
+                        ? "Please waiting for answer"
+                        : "vui lòng đợi "}
                     </Text>
                   </>
                 );
