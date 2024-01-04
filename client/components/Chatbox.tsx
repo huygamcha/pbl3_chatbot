@@ -204,7 +204,6 @@ function Chatbox() {
         p={3}
         bg="white"
         borderTopRadius="lg"
-        // borderWidth="1px"
         position="relative"
       >
         <PerfectScrollbar containerRef={(ref) => (containerRef.current = ref)}>
@@ -219,6 +218,7 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={2}
+                      ml="20%"
                     >
                       {value[0]}
                     </Text>
@@ -228,6 +228,8 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={2}
+                      mb="50px"
+                      mr="20%"
                     >
                       {value[1]}
                     </Text>

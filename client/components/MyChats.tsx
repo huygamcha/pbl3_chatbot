@@ -144,6 +144,7 @@ const MyChats = () => {
             <Stack>
               {value.map((chat, index) => (
                 <Box
+                  _hover={{ background: "#38b2ac", color: "white" }}
                   key={index}
                   onClick={() => handleClick(chat)}
                   cursor="pointer"
