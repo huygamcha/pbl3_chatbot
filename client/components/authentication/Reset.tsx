@@ -3,14 +3,11 @@ import { VStack } from "@chakra-ui/layout";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Button } from "@chakra-ui/button";
-import { Box, useToast } from "@chakra-ui/react";
+import { FormErrorMessage, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import React from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { IoMdStar } from "react-icons/io";
-import * as Yup from "yup";
 
 function Reset() {
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,23 +15,42 @@ function Reset() {
   const [show, setShow] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const toast = useToast();
+  const handleShowPassword = () => {
+    setShow(!show);
+  };
+  let isError = true;
   const history = useHistory();
   // show and hide password
   const handleClick = () => {
     setShow(!show);
   };
+  let isLength = false;
+  if (password.length == 1 || password.length == 2) {
+    isLength = true;
+  } else if (password.length >= 3) {
+    isLength = false;
+  }
+  if (password === confirmPassword) {
+    isError = false;
+  }
 
   const handleClickConfirm = () => {
     setShowConfirm(!showConfirm);
   };
-  const handlePassword = async (values, setFieldValue) => {
-    await setFieldValue("show", !values.show);
-  };
+  const token = location.search.slice(7);
+  console.log("««««« token »»»»»", token);
 
-  const submitHandler = async (values) => {
-    console.log("««««« values »»»»»", values);
-    const token = location.search.slice(7);
-    console.log("««««« token »»»»»", token);
+  const submitHandler = async () => {
+    if (!confirmPassword || !password) {
+      toast({
+        title: "Please Fill all the Fields",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
     try {
       const config = {
         headers: {
@@ -45,7 +61,7 @@ function Reset() {
       const { data } = await axios.post(
         `https://pbl3-chatbot.onrender.com/api/resetPassword?token=${token}`,
         {
-          password: values.password,
+          password,
         },
         config
       );
@@ -71,101 +87,52 @@ function Reset() {
   };
   return (
     <VStack>
-      <Formik
-        initialValues={{
-          name: "",
-          email: "",
-          password: "",
-          show: true,
-        }}
-        validationSchema={Yup.object({
-          name: Yup.string()
-            .required("Name is required")
-            .matches(
-              /^[a-zA-Z\s]*$/,
-              "Name must only contain letters and spaces"
-            )
-            .min(2, "Name must be at least 2 characters")
-            .max(50, "Name must be at most 50 characters"),
-          email: Yup.string()
-            .email("Invalid email address")
-            .required("Email is required")
-            .matches(
-              /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
-              "Invalid email address"
-            ),
-          password: Yup.string()
-            .min(3, "Password must be 3 characters long")
-            .required("Password is required"),
-          passwordConfirm: Yup.string().oneOf(
-            [Yup.ref("password")],
-            "Password must match"
-          ),
-        })}
-        onSubmit={submitHandler}
+      <FormControl id="password" pb={5} isInvalid={isLength}>
+        <FormLabel>New password</FormLabel>
+        <InputGroup className="box-error-profile">
+          <Input
+            padding="8px"
+            type={show ? "text" : "password"}
+            placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <InputRightElement width="4.5rem">
+            <Button
+              p={0}
+              className="show-password-profile"
+              h="1.75rem"
+              size="sm"
+              onClick={handleShowPassword}
+            >
+              {show ? <FaRegEye /> : <FaRegEyeSlash />}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+        <FormErrorMessage>Password at least 3 characters.</FormErrorMessage>
+      </FormControl>
+
+      <FormControl id="password" pb={5} isInvalid={isError}>
+        <FormLabel>Confirm password</FormLabel>
+        <InputGroup>
+          <Input
+            // padding={{ base: "8px", md: "8px" }}
+            padding="8px"
+            // pr="4.5rem"
+            type={showConfirm ? "text" : "password"}
+            placeholder="Confirm password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </InputGroup>
+        <FormErrorMessage>Password does not match.</FormErrorMessage>
+      </FormControl>
+      <Button
+        colorScheme="blue"
+        width="100%"
+        style={{ marginTop: 15 }}
+        onClick={submitHandler}
       >
-        {({ values, setFieldValue, isSubmitting, errors, touched }) => (
-          <Form style={{ width: "100%" }}>
-            <Box className="box-error">
-              <InputGroup display="flex" flexDirection="column">
-                <Box display="flex" alignItems="center">
-                  <label className="title" htmlFor="password">
-                    Password
-                  </label>
-                  <IoMdStar fontSize="10px" color="red"></IoMdStar>
-                </Box>
-
-                <Box>
-                  <Field
-                    placeholder="Enter your password"
-                    name="password"
-                    type={values.show ? "password" : "text"}
-                  />
-                  <InputRightElement>
-                    <Button
-                      padding="0"
-                      onClick={() => handlePassword(values, setFieldValue)}
-                      backgroundColor="transparent"
-                      className="show-password"
-                      size="sm"
-                    >
-                      {values.show ? <FaRegEye /> : <FaRegEyeSlash />}
-                    </Button>
-                  </InputRightElement>
-                </Box>
-                {/* <InputRightElement></InputRightElement> */}
-                <ErrorMessage name="password">
-                  {(msg) => (
-                    <div className="message-error" style={{ color: "red" }}>
-                      {msg}
-                    </div>
-                  )}
-                </ErrorMessage>
-              </InputGroup>
-            </Box>
-
-            <Box className="box-error">
-              <Box display="flex" alignItems="center">
-                <label className="title" htmlFor="passwordConfirm">
-                  Confirm Password
-                </label>
-                <IoMdStar fontSize="10px" color="red"></IoMdStar>
-              </Box>
-
-              <Field
-                placeholder="Confirm your password"
-                name="passwordConfirm"
-                type={"password"}
-              />
-              <ErrorMessage name="passwordConfirm">
-                {(msg) => <div className="message-error">{msg}</div>}
-              </ErrorMessage>
-            </Box>
-
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik>
+        Change password
+      </Button>
     </VStack>
   );
 }
