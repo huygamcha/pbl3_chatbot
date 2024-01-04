@@ -244,6 +244,7 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={2}
+                      ml="20%"
                     >
                       {value[0]}
                     </Text>
@@ -254,6 +255,7 @@ function Chatbox() {
                       p={3}
                       borderRadius="lg"
                       m={2}
+                      mr="20%"
                     >
                       Please waiting for answer
                     </Text>
