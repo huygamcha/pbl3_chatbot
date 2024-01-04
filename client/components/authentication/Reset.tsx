@@ -31,10 +31,9 @@ function Reset() {
     await setFieldValue("show", !values.show);
   };
 
-  const token = location.search.slice(7);
-  console.log("««««« token »»»»»", token);
-
-  const submitHandler = async () => {
+  const submitHandler = async (values) => {
+    const token = location.search.slice(7);
+    console.log("««««« token »»»»»", token);
     try {
       const config = {
         headers: {
@@ -45,7 +44,7 @@ function Reset() {
       const { data } = await axios.post(
         `https://pbl3-chatbot.onrender.com/api/resetPassword?token=${token}`,
         {
-          password,
+          password: values.password,
         },
         config
       );
