@@ -35,7 +35,7 @@ function Forgot() {
       const { data } = await axios.post(
         "https://pbl3-chatbot.onrender.com/api/forgotPassword",
         {
-          email,
+          email: values.email,
         },
         config
       );
