@@ -32,6 +32,7 @@ function Reset() {
   };
 
   const submitHandler = async (values) => {
+    console.log("««««« values »»»»»", values);
     const token = location.search.slice(7);
     console.log("««««« token »»»»»", token);
     try {
