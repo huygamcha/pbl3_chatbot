@@ -87,7 +87,7 @@ const ProfileModal = ({ user, children }) => {
       };
       if (!userAdmin?.isAdmin) {
         const { data } = await axios.patch(
-          `https://pbl3-chatbot.onrender.com/api/user?id=${user._id}`,
+          `${import.meta.env.VITE_URL_BACKEND}/api/user?id=${user._id}`,
           {
             name,
             password,
@@ -97,7 +97,9 @@ const ProfileModal = ({ user, children }) => {
         );
       } else {
         const { data } = await axios.patch(
-          `https://pbl3-chatbot.onrender.com/api/user/updateUserByAdmin?id=${user._id}`,
+          `${import.meta.env.VITE_URL_BACKEND}/api/user/updateUserByAdmin?id=${
+            user._id
+          }`,
           {
             name,
             password,

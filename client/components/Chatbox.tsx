@@ -41,10 +41,9 @@ function Chatbox() {
     try {
       let api = "";
       if (vietnameseRegex.test(question)) {
-        api =
-          "https://easy-partially-cicada.ngrok-free.app/vn_query_description";
+        api = `${import.meta.env.VITE_URL_QUESTION}/vn_query_description`;
       } else {
-        api = "https://easy-partially-cicada.ngrok-free.app/query_description";
+        api = `${import.meta.env.VITE_URL_QUESTION}/query_description`;
       }
       const response = await axios.post(
         `${api}`,
@@ -136,7 +135,7 @@ function Chatbox() {
           // nếu chọn new chat, và chưa tồn tại đoạn chat nào hết
           if (!selectedChat || selectedChat._id == 123) {
             const response = await axios.post(
-              "https://pbl3-chatbot.onrender.com/api/history/create",
+              `${import.meta.env.VITE_URL_BACKEND}/api/history/create`,
               {
                 userId: user._id,
                 question: storeQuestion,
@@ -152,7 +151,9 @@ function Chatbox() {
             localStorage.setItem("chat", JSON.stringify(response.data));
           } else {
             const response = await axios.post(
-              `https://pbl3-chatbot.onrender.com/api/history/create?id=${selectedChat._id}`,
+              `${import.meta.env.VITE_URL_BACKEND}/api/history/create?id=${
+                selectedChat._id
+              }`,
               {
                 userId: user._id,
                 question: storeQuestion,

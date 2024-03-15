@@ -2,9 +2,8 @@ import axios from "axios";
 
 const GetAnswer = async (query) => {
   try {
-    console.log("««««« 123 »»»»»", 123);
     const response = await axios.get(
-      `https://easy-partially-cicada.ngrok-free.app/query_result/${query}`,
+      `${import.meta.env.VITE_URL_ANSWER}/${query}`,
       {
         withCredentials: true,
         headers: {

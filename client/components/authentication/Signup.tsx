@@ -97,7 +97,7 @@ function Signup() {
         },
       };
       const { data } = await axios.post(
-        "https://pbl3-chatbot.onrender.com/api/user",
+        `${import.meta.env.VITE_URL_BACKEND}/api/user`,
         {
           name: values.name,
           email: values.email,

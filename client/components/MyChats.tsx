@@ -50,7 +50,9 @@ const MyChats = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const apiUrl = `https://pbl3-chatbot.onrender.com/api/history/get?id=${userId}`;
+      const apiUrl = `${
+        import.meta.env.VITE_URL_BACKEND
+      }/api/history/get?id=${userId}`;
       try {
         const response = await axios.get(apiUrl, config);
         const allHistory = response.data;
@@ -75,7 +77,9 @@ const MyChats = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const apiUrl = `https://pbl3-chatbot.onrender.com/api/history/get?id=${userId}`;
+      const apiUrl = `${
+        import.meta.env.VITE_URL_BACKEND
+      }/api/history/get?id=${userId}`;
       try {
         const response = await axios.get(apiUrl, config);
         const allHistory = response.data;
@@ -104,6 +108,7 @@ const MyChats = () => {
 
   console.log("««««« selectedChat  »»»»»", selectedChat);
   console.log("««««« value »»»»»", value);
+  console.log("««««« newChat »»»»»", newChat);
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}

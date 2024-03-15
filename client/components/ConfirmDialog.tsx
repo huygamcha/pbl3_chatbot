@@ -24,7 +24,9 @@ const IsolatedModal = ({ user }) => {
   const handleConfirm = async () => {
     console.log("Confirmed!");
     if (!selectedChat) {
-      const api = `https://pbl3-chatbot.onrender.com/api/user/deleteUser?id=${user._id}`;
+      const api = `${import.meta.env.VITE_URL_BACKEND}/api/user/deleteUser?id=${
+        user._id
+      }`;
       try {
         const response = await axios.delete(api);
         if (response) {
@@ -39,7 +41,9 @@ const IsolatedModal = ({ user }) => {
     }
     if (selectedChat && selectedChat._id != 123) {
       console.log("««««« here »»»»»");
-      const deleteUrl = `https://pbl3-chatbot.onrender.com/api/history/delete?id=${selectedChat._id}`;
+      const deleteUrl = `${
+        import.meta.env.VITE_URL_BACKEND
+      }/api/history/delete?id=${selectedChat._id}`;
       try {
         const response = await axios.delete(deleteUrl);
         // Kiểm tra trạng thái phản hồi (response status)

@@ -69,7 +69,7 @@ const Navigation = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const toast = useToast();
-  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
+  const ENDPOINT = "https://chatbotkclbook.onrender.com";
 
   //socket
   useEffect(() => {
@@ -103,7 +103,7 @@ const Navigation = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const apiUrl = `https://pbl3-chatbot.onrender.com/api/user/getAll`;
+      const apiUrl = `${import.meta.env.VITE_URL_BACKEND}/api/user/getAll`;
       try {
         const response = await axios.get(apiUrl, config);
         // Xử lý dữ liệu ở đây

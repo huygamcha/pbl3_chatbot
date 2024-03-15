@@ -59,7 +59,7 @@ function Reset() {
       };
 
       const { data } = await axios.post(
-        `https://pbl3-chatbot.onrender.com/api/resetPassword?token=${token}`,
+        `${import.meta.env.VITE_URL_BACKEND}/api/resetPassword?token=${token}`,
         {
           password,
         },

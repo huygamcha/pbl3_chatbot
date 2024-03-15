@@ -17,9 +17,9 @@ import io from "socket.io-client";
 import { IoMdStar } from "react-icons/io";
 
 var socket;
-
+// console.log(import.meta.env.VITE_URL_BACKEND);
 function Login() {
-  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
+  const ENDPOINT = `${import.meta.env.VITE_URL_BACKEND}`;
   const socket = io(ENDPOINT);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,7 +45,7 @@ function Login() {
         },
       };
       const { data } = await axios.post(
-        "https://pbl3-chatbot.onrender.com/api/user/login",
+        `${import.meta.env.VITE_URL_BACKEND}/api/user/login`,
         {
           email: values.email,
           password: values.password,

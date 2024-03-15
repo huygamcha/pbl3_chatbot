@@ -53,7 +53,7 @@ function SideDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("userInfo")!);
-  const ENDPOINT = "https://pbl3-chatbot.onrender.com";
+  const ENDPOINT = `${import.meta.env.VITE_URL_BACKEND}`;
   const { selectedChat, setSelectedChat, setNewChat } = ChatState();
 
   const backHistory = () => {
@@ -77,7 +77,7 @@ function SideDrawer() {
         },
       };
       const { data } = await axios.patch(
-        `https://pbl3-chatbot.onrender.com/api/user?id=${user._id}`,
+        `${import.meta.env.VITE_URL_BACKEND}/api/user?id=${user._id}`,
         {
           isOnline: false,
           dateOnline: new Date(),
@@ -110,7 +110,7 @@ function SideDrawer() {
         },
       };
       const { data } = await axios.get(
-        `https://pbl3-chatbot.onrender.com/api/user?keyword=${search}`,
+        `${import.meta.env.VITE_URL_BACKEND}/api/user?keyword=${search}`,
         config
       );
 

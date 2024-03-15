@@ -21,10 +21,12 @@ export interface ChatContextProps {
   setChats: React.Dispatch<React.SetStateAction<any>>;
 }
 
+// định nghĩa một chatContext
 export const ChatContext = createContext<ChatContextProps | undefined>(
   undefined
 );
 
+// dùng để truyền các giá trị cho cho các component con
 const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState<boolean>();
   const [selectedChatHistory, setSelectedChatHistory] = useState<boolean>();
@@ -75,6 +77,7 @@ const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   );
 };
 
+// sử dụng với chat, custom hook giúp lấy được các value thuận tiện hơn cho các component con
 export const ChatState = () => {
   const context = useContext(ChatContext);
   if (!context) {
