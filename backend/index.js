@@ -44,7 +44,7 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://pbl3-chatbot.vercel.app",
+    origin: "https://kclgroupbook.vercel.app",
     // credentials: true,
   },
 });
